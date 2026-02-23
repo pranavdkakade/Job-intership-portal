@@ -5,3 +5,8 @@ from django.contrib.auth.decorators import login_required
 def applied_companies(request):
     """Applied Companies List"""
     return render(request, 'application/applied.html')
+
+def apply_companies(request):
+    """Applied Companies List"""
+    return render(request, 'application/apply.html')
+
