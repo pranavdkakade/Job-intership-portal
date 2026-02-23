@@ -43,18 +43,65 @@
 
         <!-- Main Content -->
         <main class="main-content">
-            <div class="page-header">
-                <h1>Interview AI</h1>
+    <div class="interview-container">
+
+        <!-- Top Bar -->
+        <div class="interview-header">
+            <div class="interview-title">
+                <h2>AI Technical Interview</h2>
+                <span class="status-badge">● Live Session</span>
             </div>
-            <div class="welcome-card">
-                <h2>Welcome to Interview AI</h2>
-                <p>This page will allow you to start AI-powered interview sessions.</p>
-                <div class="action-buttons">
-                    <button class="btn btn-primary">Start New Interview</button>
-                    <button class="btn btn-secondary">View Practice Questions</button>
+            <div class="interview-meta">
+                <span>Role: Backend Developer</span>
+                <span>Difficulty: Medium</span>
+                <span id="timer">00:00</span>
+            </div>
+        </div>
+
+        <!-- Chat Area -->
+        <div class="chat-box" id="chatBox">
+
+            <!-- AI Question -->
+            <div class="chat-message ai-message">
+                <div class="avatar">🤖</div>
+                <div class="message-content">
+                    <p><strong>Question 1:</strong> Explain the difference between REST and SOAP APIs.</p>
                 </div>
             </div>
-        </main>
+
+            <!-- User Answer Example -->
+            <!-- This will be dynamically appended -->
+            <!--
+            <div class="chat-message user-message">
+                <div class="avatar">👤</div>
+                <div class="message-content">
+                    <p>User typed answer here...</p>
+                </div>
+            </div>
+            -->
+
+        </div>
+
+        <!-- Answer Input Area -->
+        <div class="answer-box">
+            <textarea id="answerInput" placeholder="Type your answer here..."></textarea>
+            <button class="submit-btn">Submit Answer</button>
+        </div>
+
+        <!-- Score Panel -->
+        <div class="score-panel" id="scorePanel" style="display:none;">
+            <h3>Evaluation Result</h3>
+            <div class="score-value">Score: <span id="scoreValue">8</span>/10</div>
+            <div class="feedback">
+                <p id="feedbackText">
+                    Good explanation. You covered REST principles well but missed error handling and authentication comparison.
+                </p>
+            </div>
+            <button class="next-btn">Next Question</button>
+        </div>
+
+    </div>
+</main>
     </div>
 </body>
 </html>

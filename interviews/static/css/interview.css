@@ -197,3 +197,147 @@ body {
         padding: 20px;
     }
 }
+
+
+
+/* main tag */
+
+
+/* MAIN LAYOUT */
+.main-content {
+    padding: 30px;
+    background: #f4f6f9;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.interview-container {
+    background: #ffffff;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* HEADER */
+.interview-header {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.interview-title h2 {
+    margin: 0;
+}
+
+.status-badge {
+    font-size: 14px;
+    color: green;
+    margin-left: 10px;
+}
+
+.interview-meta span {
+    margin-left: 15px;
+    font-size: 14px;
+    color: #555;
+}
+
+/* CHAT AREA */
+.chat-box {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background: #fafafa;
+}
+
+.chat-message {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.chat-message .avatar {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.message-content {
+    background: #e9ecef;
+    padding: 12px 15px;
+    border-radius: 10px;
+    max-width: 70%;
+}
+
+.ai-message .message-content {
+    background: #e3f2fd;
+}
+
+.user-message {
+    flex-direction: row-reverse;
+}
+
+.user-message .message-content {
+    background: #d1f7d6;
+}
+
+.user-message .avatar {
+    margin-left: 10px;
+}
+
+/* ANSWER BOX */
+.answer-box {
+    padding: 15px;
+    border-top: 1px solid #eee;
+    display: flex;
+    gap: 10px;
+}
+
+.answer-box textarea {
+    flex: 1;
+    resize: none;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    height: 70px;
+    font-size: 14px;
+}
+
+.submit-btn {
+    padding: 10px 20px;
+    background: #1e88e5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background: #1565c0;
+}
+
+/* SCORE PANEL */
+.score-panel {
+    padding: 20px;
+    border-top: 1px solid #eee;
+    background: #f9fbff;
+}
+
+.score-value {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.next-btn {
+    padding: 8px 16px;
+    background: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.next-btn:hover {
+    background: #388e3c;
+}
