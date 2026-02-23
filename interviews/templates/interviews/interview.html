@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interview AI - JobView</title>
     <link rel="stylesheet" href="{% static 'css/interview.css' %}">
+    <script src="{% static 'js/interview.js' %}" defer></script>
 </head>
 <body>
     <div class="dashboard-wrapper">
@@ -43,65 +44,61 @@
 
         <!-- Main Content -->
         <main class="main-content">
-    <div class="interview-container">
+            <div class="interview-container">
 
-        <!-- Top Bar -->
-        <div class="interview-header">
-            <div class="interview-title">
-                <h2>AI Technical Interview</h2>
-                <span class="status-badge">● Live Session</span>
-            </div>
-            <div class="interview-meta">
-                <span>Role: Backend Developer</span>
-                <span>Difficulty: Medium</span>
-                <span id="timer">00:00</span>
-            </div>
-        </div>
-
-        <!-- Chat Area -->
-        <div class="chat-box" id="chatBox">
-
-            <!-- AI Question -->
-            <div class="chat-message ai-message">
-                <div class="avatar">🤖</div>
-                <div class="message-content">
-                    <p><strong>Question 1:</strong> Explain the difference between REST and SOAP APIs.</p>
+                <!-- Top Bar -->
+                <div class="interview-header">
+                    <div class="interview-title">
+                        <h2>AI Technical Interview</h2>
+                        <span class="status-badge" id="statusBadge">● Ready to Start</span>
+                    </div>
+                    <div class="interview-meta">
+                        <span id="roleDisplay">Role: Not Selected</span>
+                        <span id="topicsDisplay">Topics: Not Selected</span>
+                        <span id="timer">00:00</span>
+                    </div>
                 </div>
-            </div>
 
-            <!-- User Answer Example -->
-            <!-- This will be dynamically appended -->
-            <!--
-            <div class="chat-message user-message">
-                <div class="avatar">👤</div>
-                <div class="message-content">
-                    <p>User typed answer here...</p>
+                <!-- Chat Area -->
+                <div class="chat-box" id="chatBox">
+                    <div class="chat-message ai-message">
+                        <div class="avatar">🤖</div>
+                        <div class="message-content">
+                            <p>Welcome to AI Interview! <br>Type <strong>"go"</strong> to start your interview session.</p>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Answer Input Area -->
+                <div class="answer-box">
+                    <textarea id="answerInput" placeholder="Type your message here..." rows="3"></textarea>
+                    <button class="submit-btn" id="submitBtn">Send Message</button>
+                </div>
+
+                <!-- Loading Indicator -->
+                <div class="loading-indicator" id="loadingIndicator" style="display: none;">
+                    <div class="spinner"></div>
+                    <span>AI is processing your request...</span>
+                </div>
+
+                <!-- Score Panel -->
+                <div class="score-panel" id="scorePanel" style="display: none;">
+                    <h3>Interview Completed! 🎉</h3>
+                    <div class="final-score">
+                        <div class="score-circle">
+                            <span id="finalScore">0.0</span>
+                            <small>/10</small>
+                        </div>
+                    </div>
+                    <div class="completion-message">
+                        <p>Congratulations on completing your AI interview!</p>
+                        <button class="restart-btn" onclick="restartInterview()">Start New Interview</button>
+                        <button class="history-btn" onclick="window.location.href='{% url 'interviews:interview_history' %}'">View History</button>
+                    </div>
+                </div>
+
             </div>
-            -->
-
-        </div>
-
-        <!-- Answer Input Area -->
-        <div class="answer-box">
-            <textarea id="answerInput" placeholder="Type your answer here..."></textarea>
-            <button class="submit-btn">Submit Answer</button>
-        </div>
-
-        <!-- Score Panel -->
-        <div class="score-panel" id="scorePanel" style="display:none;">
-            <h3>Evaluation Result</h3>
-            <div class="score-value">Score: <span id="scoreValue">8</span>/10</div>
-            <div class="feedback">
-                <p id="feedbackText">
-                    Good explanation. You covered REST principles well but missed error handling and authentication comparison.
-                </p>
-            </div>
-            <button class="next-btn">Next Question</button>
-        </div>
-
-    </div>
-</main>
+        </main>
     </div>
 </body>
 </html>
