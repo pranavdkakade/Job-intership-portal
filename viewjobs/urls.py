@@ -24,4 +24,5 @@ urlpatterns = [
     path("users/", include("users.urls")),   # register + login + dashboard
     path("application/", include("application.urls")),  # job applications + applied companies
     path("interviews/", include("interviews.urls")),  # interview + history
+    path('interview-api/', include('interviews.api.urls_api')),
 ]
