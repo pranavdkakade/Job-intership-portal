@@ -4,8 +4,431 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>Interview AI - JobView</title>
-    <link rel="stylesheet" href="{% static 'css/interview.css' %}">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .dashboard-wrapper {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #1a1a1a;
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            border-right: 1px solid #333333;
+        }
+
+        .sidebar-brand {
+            margin-bottom: 40px;
+        }
+
+        .sidebar-brand h3 {
+            font-size: 26px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            margin-bottom: 6px;
+            border-radius: 6px;
+            text-decoration: none;
+            color: #ecf0f1;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .nav-item:hover {
+            background-color: #2563eb;
+            color: #fff;
+        }
+
+        .nav-item.active {
+            background-color: #2563eb;
+            color: white;
+        }
+
+        .nav-item .icon {
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid #333333;
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: #4a4a4a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            justify-content: center;
+            font-weight: 500;
+        }
+
+        .logout-btn:hover {
+            background-color: #333333;
+            text-decoration: none;
+            color: white;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            flex: 1;
+            padding: 30px;
+            background: #0a0a0a;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .interview-container {
+            background: #000000;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            height: 90vh;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            /* border: 1px solid #333333; */
+        }
+
+        .interview-header {
+            /* padding: 2px; */
+            /* border-bottom: 1px solid #333333; */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .interview-title h2 {
+            margin: 0;
+            color: #ffffff;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .status-badge {
+            font-size: 14px;
+            color: #10b981;
+            margin-left: 10px;
+            font-weight: 500;
+        }
+
+        .interview-meta span {
+            margin-left: 15px;
+            font-size: 16px;
+            color: #a0a0a0;
+        }
+
+        .chat-box {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #0a0a0a;
+        }
+
+        .chat-message {
+            display: flex;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chat-message .avatar {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        .message-content {
+            background: #0a0a0a;
+            padding: 15px 20px;
+            border-radius: 12px;
+            max-width: 70%;
+            color: #ffffff;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .ai-message .message-content {
+            background: #2563eb;
+            color: #ffffff;
+        }
+
+        .user-message {
+            flex-direction: row-reverse;
+        }
+
+        .user-message .message-content {
+            background: #2c2d2d;
+            color: #ffffff;
+        }
+
+        .user-message .avatar {
+            margin-left: 10px;
+        }
+
+        .answer-box {
+            padding: 20px;
+            /* border-top: 1px solid #333333; */
+            display: flex;
+            gap: 15px;
+            background: #0e0e0e;
+            align-items: flex-end;
+        }
+
+        #answerInput {
+            flex: 1;
+            min-height: 60px;
+            padding: 15px;
+            border: 2px solid #333333;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 16px;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+            background: #2a2a2a;
+            color: #ffffff;
+        }
+
+        #answerInput:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        #answerInput::placeholder {
+            color: #a0a0a0;
+            font-size: 16px;
+        }
+
+        .submit-btn {
+            padding: 15px 20px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #a0a0a0;
+            background: rgba(26, 26, 26, 0.9);
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #333333;
+            border-top: 2px solid #2563eb;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .score-panel {
+            padding: 30px;
+            border-top: 1px solid #333333;
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            text-align: center;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .score-panel h3 {
+            color: #10b981;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .final-score {
+            margin: 30px 0;
+        }
+
+        .score-circle {
+            display: inline-block;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981, #047857);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px auto;
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .score-circle span {
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .score-circle small {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .completion-message {
+            margin-top: 20px;
+        }
+
+        .completion-message p {
+            color: #a0a0a0;
+            margin-bottom: 20px;
+        }
+
+        .restart-btn, .history-btn {
+            padding: 12px 24px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .restart-btn {
+            background: #2563eb;
+            color: white;
+        }
+
+        .restart-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        .history-btn {
+            background: #333333;
+            color: #ffffff;
+            border: 2px solid #555555;
+        }
+
+        .history-btn:hover {
+            background: #555555;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                flex-direction: row;
+            }
+
+            .sidebar-nav {
+                display: flex;
+                gap: 10px;
+                flex: 1;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .answer-box {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .submit-btn {
+                width: 100%;
+            }
+            
+            .score-circle {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .score-circle span {
+                font-size: 28px;
+            }
+            
+            .restart-btn, .history-btn {
+                display: block;
+                width: 100%;
+                margin: 5px 0;
+            }
+        }
+    </style>
     <script src="{% static 'js/interview.js' %}" defer></script>
 </head>
 <body>

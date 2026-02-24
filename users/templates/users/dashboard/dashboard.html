@@ -6,7 +6,265 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - JobView</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="{% static 'css/dashboard/dashboard.css' %}">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .dashboard-wrapper {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #1a1a1a;
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            border-right: 1px solid #333333;
+        }
+
+        .sidebar-brand {
+            margin-bottom: 40px;
+        }
+
+        .sidebar-brand h3 {
+            font-size: 26px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            margin-bottom: 6px;
+            border-radius: 6px;
+            text-decoration: none;
+            color: #ecf0f1;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .nav-item:hover {
+            background-color: #2563eb;
+            color: #fff;
+        }
+
+        .nav-item.active {
+            background-color: #2563eb;
+            color: white;
+        }
+
+        .nav-item .icon {
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid #333333;
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: #4a4a4a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            justify-content: center;
+            font-weight: 500;
+        }
+
+        .logout-btn:hover {
+            background-color: #333333;
+            text-decoration: none;
+            color: white;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            background-color: #0a0a0a;
+        }
+
+        .hero-section {
+            margin-bottom: 40px;
+            padding: 30px 0;
+        }
+
+        .hero-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            color: #888888;
+            margin-bottom: 0;
+            line-height: 1.5;
+        }
+
+        .hero-subtitle .username {
+            color: #6366f1;
+            font-weight: 600;
+        }
+
+        .dashboard-section {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            border: 1px solid #333333;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            color: #ffffff;
+            margin-bottom: 0;
+            font-size: 24px;
+        }
+
+        .edit-btn {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .edit-btn:hover {
+            background-color: #333333;
+            text-decoration: none;
+        }
+
+        .student-detail {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .profile-avatar img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid #333333;
+        }
+
+        .student-info {
+            flex: 1;
+        }
+
+        .info-item {
+            margin-bottom: 15px;
+        }
+
+        .info-item label {
+            display: block;
+            font-weight: 600;
+            color: #a0a0a0;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .info-item p {
+            color: #ffffff;
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .section-description {
+            color: #a0a0a0;
+            margin-bottom: 25px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .graphs-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+        }
+
+        .graph-card {
+            background: #2a2a2a;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #444444;
+        }
+
+        .graph-card h3 {
+            color: #ffffff;
+            margin-bottom: 20px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                flex-direction: row;
+            }
+
+            .sidebar-nav {
+                display: flex;
+                gap: 10px;
+                flex: 1;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .graphs-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="dashboard-wrapper">
@@ -44,8 +302,10 @@
 
         <!-- Main Content -->
         <main class="main-content">
-            <div class="page-header">
-                <h1>Dashboard</h1>
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <h1 class="hero-title">User Dashboard</h1>
+                <p class="hero-subtitle">Welcome back, <span class="username">{{ user.first_name|default:user.username }}</span>. Here's your career progress.</p>
             </div>
 
             <!-- Student Detail Section -->
@@ -105,7 +365,7 @@
                 datasets: [{
                     label: 'Score',
                     data: [75, 65, 85, 70],
-                    backgroundColor: '#1E3A8A',
+                    backgroundColor: '#2563eb',
                     borderRadius: 4,
                     borderSkipped: false
                 }]
@@ -113,13 +373,29 @@
             options: {
                 responsive: true,
                 plugins: {
-                    legend: { display: false }
+                    legend: { 
+                        display: false 
+                    }
                 },
                 scales: {
                     y: {
                         beginAtZero: true,
                         max: 100,
-                        ticks: { stepSize: 25 }
+                        ticks: { 
+                            stepSize: 25,
+                            color: '#a0a0a0'
+                        },
+                        grid: {
+                            color: '#444444'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#a0a0a0'
+                        },
+                        grid: {
+                            color: '#444444'
+                        }
                     }
                 }
             }
@@ -134,23 +410,42 @@
                 datasets: [{
                     label: 'Your Skills',
                     data: [75, 80, 85, 70, 75, 70],
-                    borderColor: '#667eea',
-                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                    borderColor: '#2563eb',
+                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
                     borderWidth: 2,
                     fill: true,
-                    pointBackgroundColor: '#1E3A8A'
+                    pointBackgroundColor: '#2563eb',
+                    pointBorderColor: '#ffffff'
                 }]
             },
             options: {
                 responsive: true,
                 plugins: {
-                    legend: { position: 'bottom' }
+                    legend: { 
+                        position: 'bottom',
+                        labels: {
+                            color: '#a0a0a0'
+                        }
+                    }
                 },
                 scales: {
                     r: {
                         beginAtZero: true,
                         max: 100,
-                        ticks: { stepSize: 20 }
+                        ticks: { 
+                            stepSize: 20,
+                            color: '#a0a0a0',
+                            backdropColor: 'transparent'
+                        },
+                        grid: {
+                            color: '#444444'
+                        },
+                        angleLines: {
+                            color: '#444444'
+                        },
+                        pointLabels: {
+                            color: '#a0a0a0'
+                        }
                     }
                 }
             }

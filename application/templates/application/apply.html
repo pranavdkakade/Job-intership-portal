@@ -4,8 +4,604 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Applied Companies - JobView</title>
-    <link rel="stylesheet" href="{% static 'css/apply.css' %}">
+    <title>Apply to Companies - JobView</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .dashboard-wrapper {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #1a1a1a;
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            border-right: 1px solid #333333;
+        }
+
+        .sidebar-brand {
+            margin-bottom: 40px;
+        }
+
+        .sidebar-brand h3 {
+            font-size: 26px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            margin-bottom: 6px;
+            border-radius: 6px;
+            text-decoration: none;
+            color: #ecf0f1;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .nav-item:hover {
+            background-color: #2563eb;
+            color: #fff;
+        }
+
+        .nav-item.active {
+            background-color: #2563eb;
+            color: white;
+        }
+
+        .nav-item .icon {
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid #333333;
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: #4a4a4a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            justify-content: center;
+            font-weight: 500;
+        }
+
+        .logout-btn:hover {
+            background-color: #333333;
+            text-decoration: none;
+            color: white;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            background-color: #0a0a0a;
+        }
+
+        .hero-section {
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            color: #888888;
+            margin-bottom: 0;
+            line-height: 1.5;
+        }
+
+        .stats-container {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .stat-card {
+            background: #1a1a1a;
+            border: 1px solid #333333;
+            border-radius: 12px;
+            padding: 20px 25px;
+            text-align: center;
+            min-width: 120px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            border-color: #6366f1;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: 700;
+            color: #6366f1;
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #888888;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-card.remote .stat-number {
+            color: #10b981;
+        }
+
+        .stat-card.companies .stat-number {
+            color: #f59e0b;
+        }
+
+        .placeholder-content {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            border: 1px solid #333333;
+        }
+
+        .placeholder-content h2 {
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .placeholder-content p {
+            color: #a0a0a0;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        /* Job Listing Styles */
+        .search-section {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid #333333;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 300px;
+            padding: 12px 15px;
+            background: #2a2a2a;
+            border: 1px solid #444444;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 14px;
+        }
+
+        .search-input::placeholder {
+            color: #888888;
+        }
+
+        .filter-select {
+            padding: 12px 15px;
+            background: #2a2a2a;
+            border: 1px solid #444444;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 14px;
+            min-width: 150px;
+        }
+
+        .search-btn {
+            padding: 12px 25px;
+            background: #6366f1;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: #4f46e5;
+        }
+
+        .content-layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+        }
+
+        .jobs-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .job-card {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid #333333;
+            transition: all 0.3s ease;
+        }
+
+        .job-card:hover {
+            border-color: #6366f1;
+            transform: translateY(-2px);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .job-left {
+            display: flex;
+            gap: 15px;
+        }
+
+        .company-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .job-info h3 {
+            color: #ffffff;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .company-location {
+            color: #888888;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .salary {
+            color: #10b981;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .job-description {
+            color: #cccccc;
+            line-height: 1.5;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+
+        .job-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .tag {
+            background: #2563eb;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .job-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .posted-time {
+            color: #888888;
+            font-size: 12px;
+        }
+
+        .apply-btn {
+            background: #6366f1;
+            color: white;
+            padding: 8px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .apply-btn:hover {
+            background: #4f46e5;
+        }
+
+        .view-details-btn {
+            background: transparent;
+            color: #6366f1;
+            padding: 8px 20px;
+            border: 1px solid #6366f1;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+        }
+
+        .view-details-btn:hover {
+            background: #6366f1;
+            color: white;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .right-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .sidebar-card {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #333333;
+        }
+
+        .sidebar-card h3 {
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .company-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .company-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .company-item .avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .company-details {
+            flex: 1;
+        }
+
+        .company-details .name {
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .company-details .jobs {
+            color: #888888;
+            font-size: 12px;
+        }
+
+        .interview-card {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .interview-card h3 {
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .interview-card p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .interview-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .job-alerts {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #333333;
+        }
+
+        .job-alerts h3 {
+            color: #ffffff;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .job-alerts p {
+            color: #888888;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .email-input {
+            width: 100%;
+            padding: 10px;
+            background: #2a2a2a;
+            border: 1px solid #444444;
+            border-radius: 6px;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .subscribe-btn {
+            width: 100%;
+            background: #ffffff;
+            color: #000000;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .load-more {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .load-more-btn {
+            background: transparent;
+            color: #888888;
+            border: 1px solid #444444;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .load-more-btn:hover {
+            border-color: #6366f1;
+            color: #6366f1;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                flex-direction: column;
+                text-align: center;
+                gap: 25px;
+            }
+
+            .hero-title {
+                font-size: 28px;
+            }
+
+            .stats-container {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .content-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-bar {
+                flex-direction: column;
+            }
+            
+            .search-input, .filter-select {
+                width: 100%;
+                min-width: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                flex-direction: row;
+            }
+
+            .sidebar-nav {
+                display: flex;
+                gap: 10px;
+                flex: 1;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="dashboard-wrapper">
@@ -43,12 +639,190 @@
 
         <!-- Main Content -->
         <main class="main-content">
-            <div class="page-header">
-                <h1>Applied Companies</h1>
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h1 class="hero-title">Find Your Dream Job</h1>
+                    <p class="hero-subtitle">Explore 1,250+ curated opportunities from top tech companies</p>
+                </div>
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-number">1,250+</div>
+                        <div class="stat-label">JOBS</div>
+                    </div>
+                    <div class="stat-card companies">
+                        <div class="stat-number">320+</div>
+                        <div class="stat-label">COMPANIES</div>
+                    </div>
+                    <div class="stat-card remote">
+                        <div class="stat-number">Remote</div>
+                        <div class="stat-label">AVAILABLE</div>
+                    </div>
+                </div>
             </div>
-            <div class="placeholder-content">
-                <h2>Welcome to Applied Companies</h2>
-                <p>This page will show all companies where you have applied for jobs.</p>
+            
+            <!-- Search Section -->
+            <div class="search-section">
+                <div class="search-bar">
+                    <input type="text" class="search-input" placeholder="🔍 Search job title, skill, or company">
+                    <select class="filter-select">
+                        <option>📍 All Locations</option>
+                        <option>New York</option>
+                        <option>San Francisco</option>
+                        <option>Remote</option>
+                    </select>
+                    <select class="filter-select">
+                        <option>📊 Experience Level</option>
+                        <option>Entry Level</option>
+                        <option>Mid Level</option>
+                        <option>Senior Level</option>
+                    </select>
+                    <button class="search-btn">Search</button>
+                </div>
+            </div>
+
+            <!-- Content Layout -->
+            <div class="content-layout">
+                <!-- Job Listings -->
+                <div class="jobs-container">
+                    <!-- Job Card 1 -->
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div class="job-left">
+                                <div class="company-avatar" style="background: #2563eb;">T</div>
+                                <div class="job-info">
+                                    <h3>Senior Software Engineer</h3>
+                                    <div class="company-location">TechCorp Inc. • Remote</div>
+                                    <div class="salary">$120k-150k</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="job-description">
+                            Build scalable AI infrastructure using Python, Kubernetes, and AWS. Work with world-class engineers solving global problems in the fintech sector.
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">AWS</span>
+                            <span class="tag">Kubernetes</span>
+                            <span class="tag">AI</span>
+                        </div>
+                        <div class="job-footer">
+                            <span class="posted-time">Posted 2 days ago</span>
+                            <div class="button-group">
+                                <button class="apply-btn">Apply</button>
+                                <button class="view-details-btn">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Job Card 2 -->
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div class="job-left">
+                                <div class="company-avatar" style="background: #10b981;">G</div>
+                                <div class="job-info">
+                                    <h3>Product Designer</h3>
+                                    <div class="company-location">DesignFlow • San Francisco, CA</div>
+                                    <div class="salary">$110k-140k</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="job-description">
+                            Shape the future of our enterprise tools. We're looking for a designer with strong visual taste and proficiency in Figma and design systems.
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag">Figma</span>
+                            <span class="tag">UI/UX</span>
+                            <span class="tag">Design Systems</span>
+                        </div>
+                        <div class="job-footer">
+                            <span class="posted-time">Posted 5 hours ago</span>
+                            <div class="button-group">
+                                <button class="apply-btn">Apply</button>
+                                <button class="view-details-btn">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Job Card 3 -->
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div class="job-left">
+                                <div class="company-avatar" style="background: #f59e0b;">A</div>
+                                <div class="job-info">
+                                    <h3>ML Research Scientist</h3>
+                                    <div class="company-location">DeepLabs • London, UK (Hybrid)</div>
+                                    <div class="salary">£90k-120k</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="job-description">
+                            Help us push the boundaries of LLMs. You will work on fine-tuning strategies and optimizing inference for edge devices.
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag">PyTorch</span>
+                            <span class="tag">LLM</span>
+                            <span class="tag">NLP</span>
+                        </div>
+                        <div class="job-footer">
+                            <span class="posted-time">Posted 1 day ago</span>
+                            <div class="button-group">
+                                <button class="apply-btn">Apply</button>
+                                <button class="view-details-btn">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="load-more">
+                        <button class="load-more-btn">Load More Opportunities</button>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="right-sidebar">
+                    <!-- Top Companies -->
+                    <div class="sidebar-card">
+                        <h3>🏢 Top Companies</h3>
+                        <div class="company-list">
+                            <div class="company-item">
+                                <div class="avatar" style="background: #2563eb;">T</div>
+                                <div class="company-details">
+                                    <div class="name">TechCorp</div>
+                                    <div class="jobs">120 Jobs</div>
+                                </div>
+                            </div>
+                            <div class="company-item">
+                                <div class="avatar" style="background: #10b981;">G</div>
+                                <div class="company-details">
+                                    <div class="name">GlobalDev</div>
+                                    <div class="jobs">80 Jobs</div>
+                                </div>
+                            </div>
+                            <div class="company-item">
+                                <div class="avatar" style="background: #f59e0b;">A</div>
+                                <div class="company-details">
+                                    <div class="name">AlphaData</div>
+                                    <div class="jobs">65 Jobs</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ace Your Interview -->
+                    <div class="interview-card">
+                        <h3>Ace Your Interview</h3>
+                        <p>Our AI coach helps you practice technical interviews with real-time feedback.</p>
+                        <a href="{% url 'interviews:start_interview' %}" class="interview-btn" style="display: inline-block; text-decoration: none;">Try Interview AI</a>
+                    </div>
+
+                    <!-- Job Alerts -->
+                    <div class="job-alerts">
+                        <h3>Job Alerts</h3>
+                        <p>Get notified when new jobs matching your profile are posted.</p>
+                        <input type="email" class="email-input" placeholder="Email address">
+                        <button class="subscribe-btn">Subscribe</button>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
