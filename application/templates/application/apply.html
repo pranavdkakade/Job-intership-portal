@@ -625,26 +625,26 @@
             </div>
             <nav class="sidebar-nav">
                 <a href="{% url 'users:user_dashboard' %}" class="nav-item">
-                    <span class="icon">📊</span> Dashboard
+                    <span class="icon"></span> Dashboard
                 </a>
                 <a href="{% url 'application:applied_companies' %}" class="nav-item">
-                    <span class="icon">🏢</span> Applied Companies
+                    <span class="icon"></span> Applied Companies
                 </a>
                 <a href="{% url 'application:apply_companies' %}" class="nav-item active">
-                    <span class="icon">📝</span> Apply to Companies
+                    <span class="icon"></span> Apply to Companies
                 </a>
                 <a href="{% url 'interviews:start_interview' %}" class="nav-item">
-                    <span class="icon">🎤</span> Interview AI
+                    <span class="icon"></span> Interview AI
                 </a>
                 <a href="{% url 'interviews:interview_history' %}" class="nav-item">
-                    <span class="icon">📜</span> History of AI
+                    <span class="icon"></span> History of AI
                 </a>
             </nav>
             <div class="sidebar-footer">
                 <form method="post" action="{% url 'users:logout' %}">
                     {% csrf_token %}
                     <button type="submit" class="logout-btn">
-                        <span>🚪 Logout</span>
+                        <span>Logout</span>
                     </button>
                 </form>
             </div>
@@ -677,15 +677,15 @@
             <!-- Search Section -->
             <div class="search-section">
                 <div class="search-bar">
-                    <input type="text" class="search-input" placeholder="🔍 Search job title, skill, or company">
+                    <input type="text" class="search-input" placeholder="Search job title, skill, or company">
                     <select class="filter-select">
-                        <option>📍 All Locations</option>
+                        <option>All Locations</option>
                         <option>New York</option>
                         <option>San Francisco</option>
                         <option>Remote</option>
                     </select>
                     <select class="filter-select">
-                        <option>📊 Experience Level</option>
+                        <option>Experience Level</option>
                         <option>Entry Level</option>
                         <option>Mid Level</option>
                         <option>Senior Level</option>
@@ -795,7 +795,7 @@
                 <div class="right-sidebar">
                     <!-- Top Companies -->
                     <div class="sidebar-card">
-                        <h3>🏢 Top Companies</h3>
+                        <h3>Top Companies</h3>
                         <div class="company-list">
                             <div class="company-item">
                                 <div class="avatar" style="background: #2563eb;">T</div>

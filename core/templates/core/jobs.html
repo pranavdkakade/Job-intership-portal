@@ -5,353 +5,620 @@
 
 {% block extra_css %}
 <style>
-    /* Reset Bootstrap overrides */
-    .container .jobs-container {
-        padding: 40px 0 !important;
-        max-width: 100% !important;
-        margin: 0 !important;
+    /* Global Styles */
+    body {
+        font-family: 'Montserrat', sans-serif;
+        background: #fafafa;
     }
-
-    /* HEADER */
+    
+    /* Jobs Container */
+    .jobs-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 120px 40px 80px 40px;
+    }
+    
+    /* Header Section */
     .jobs-header {
-        display: flex !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        margin-bottom: 40px !important;
+        text-align: center;
+        margin-bottom: 60px;
+        padding-bottom: 40px;
+        border-bottom: 1px solid #e5e5e5;
     }
-
+    
     .jobs-header h1 {
-        font-size: 34px !important;
-        font-weight: 700 !important;
-        color: #1e293b !important;
-        margin: 0 !important;
+        font-family: 'Playfair Display', serif;
+        font-size: 3.5rem;
+        font-weight: 700;
+        color: #000;
+        margin: 0 0 20px 0;
+        letter-spacing: -0.5px;
     }
-
+    
     .jobs-header p {
-        color: #64748b !important;
-        margin: 10px 0 0 0 !important;
+        font-size: 1.1rem;
+        color: #666;
+        margin: 0 0 35px 0;
+        letter-spacing: 0.3px;
     }
-
+    
     .jobs-header-stats {
-        display: flex !important;
-        gap: 15px !important;
+        display: flex;
+        justify-content: center;
+        gap: 60px;
+        margin-top: 35px;
     }
-
+    
     .stat-box {
-        background: white !important;
-        padding: 15px 25px !important;
-        border-radius: 12px !important;
-        text-align: center !important;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.05) !important;
-        margin: 0 !important;
-        border: 1px solid #e2e8f0 !important;
+        text-align: center;
     }
-
+    
     .stat-box span {
-        font-weight: 700 !important;
-        display: block !important;
-        color: #1e293b !important;
-        font-size: 1.2rem !important;
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #000;
+        display: block;
+        margin-bottom: 8px;
     }
-
+    
     .stat-box label {
-        font-size: 13px !important;
-        color: #64748b !important;
-        margin: 0 !important;
+        font-size: 0.85rem;
+        color: #999;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 500;
     }
-
-    /* FILTER BAR */
+    
+    /* Filter Bar */
     .filter-bar {
-        display: flex !important;
-        gap: 15px !important;
-        background: rgba(255,255,255,0.9) !important;
-        backdrop-filter: blur(10px) !important;
-        padding: 20px !important;
-        border-radius: 12px !important;
-        margin-bottom: 30px !important;
-        border: 1px solid #e2e8f0 !important;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
-        flex-wrap: wrap !important;
+        background: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        margin-bottom: 50px;
+        border: 1px solid #e5e5e5;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.04);
     }
-
+    
+    .filter-form {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr auto;
+        gap: 20px;
+        align-items: center;
+    }
+    
     .filter-input {
-        flex: 1 !important;
-        display: flex !important;
-        align-items: center !important;
-        background: white !important;
-        padding: 12px 15px !important;
-        border-radius: 8px !important;
-        border: 1px solid #e2e8f0 !important;
-        min-width: 250px !important;
+        position: relative;
     }
-
+    
     .filter-input i {
-        color: #64748b !important;
-        margin-right: 10px !important;
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #999;
+        pointer-events: none;
     }
-
-    .filter-input input {
-        border: none !important;
-        outline: none !important;
-        flex: 1 !important;
-        background: transparent !important;
-        font-family: inherit !important;
-        font-size: 14px !important;
-    }
-
+    
+    .filter-input input,
     .filter-bar select {
-        padding: 12px 15px !important;
-        border-radius: 8px !important;
-        border: 1px solid #e2e8f0 !important;
-        background: white !important;
-        font-family: inherit !important;
-        min-width: 150px !important;
+        width: 100%;
+        padding: 14px 15px 14px 45px;
+        border: 1px solid #e5e5e5;
+        border-radius: 6px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 0.95rem;
+        background: #fafafa;
+        transition: all 0.3s ease;
     }
-
+    
+    .filter-bar select {
+        padding-left: 15px;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 15px center;
+        cursor: pointer;
+    }
+    
+    .filter-input input:focus,
+    .filter-bar select:focus {
+        outline: none;
+        border-color: #000;
+        background: #fff;
+    }
+    
     .search-btn {
-        background: linear-gradient(135deg,#6366f1,#8b5cf6) !important;
-        color: white !important;
-        border: none !important;
-        padding: 12px 24px !important;
-        border-radius: 8px !important;
-        cursor: pointer !important;
-        font-weight: 600 !important;
-        transition: all 0.3s ease !important;
+        padding: 14px 35px;
+        background: #000;
+        color: #fff;
+        border: 2px solid #000;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        letter-spacing: 0.5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        font-size: 0.85rem;
     }
-
+    
     .search-btn:hover {
-        transform: translateY(-2px) !important;
-        box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3) !important;
+        background: #fff;
+        color: #000;
     }
-
-    /* GRID LAYOUT */
+    
+    /* Jobs Grid Layout */
     .jobs-grid {
-        display: grid !important;
-        grid-template-columns: 2fr 1fr !important;
-        gap: 30px !important;
-        margin: 0 !important;
+        display: grid;
+        grid-template-columns: 1fr 350px;
+        gap: 40px;
     }
-
-    /* JOB CARDS */
+    
+    /* Job Cards */
     .job-card {
-        background: white !important;
-        padding: 25px !important;
-        border-radius: 16px !important;
-        margin-bottom: 20px !important;
-        transition: all 0.3s ease !important;
-        border: 1px solid #e2e8f0 !important;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
-        position: relative !important;
-        overflow: hidden !important;
+        background: #fff;
+        padding: 0;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        border: 1px solid #e5e5e5;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
     }
-
-    .job-card:before {
+    
+    .job-card::before {
         content: '';
         position: absolute;
         top: 0;
         left: 0;
-        width: 5px;
-        height: 100%;
-        background: linear-gradient(135deg, #6366f1, #8b5cf6);
-        opacity: 0;
-        transition: opacity 0.3s ease;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, #000 0%, #333 100%);
+        transition: all 0.3s ease;
     }
-
+    
+    .job-card.accent-blue::before {
+        background: linear-gradient(90deg, #2563eb 0%, #1e40af 100%);
+    }
+    
+    .job-card.accent-green::before {
+        background: linear-gradient(90deg, #059669 0%, #047857 100%);
+    }
+    
+    .job-card.accent-purple::before {
+        background: linear-gradient(90deg, #7c3aed 0%, #6d28d9 100%);
+    }
+    
+    .job-card.accent-orange::before {
+        background: linear-gradient(90deg, #ea580c 0%, #c2410c 100%);
+    }
+    
     .job-card:hover {
-        transform: translateY(-5px) !important;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
+        transform: translateY(-5px);
+        box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+        border-color: #ddd;
     }
-
-    .job-card:hover:before {
-        opacity: 1;
+    
+    .job-card:hover::before {
+        height: 6px;
     }
-
-    /* JOB CARD HEADER */
+    
+    /* Job Card Header */
     .job-card-header {
-        display: flex !important;
-        align-items: center !important;
-        gap: 15px !important;
-        margin-bottom: 15px !important;
+        padding: 35px 35px 25px 35px;
+        background: linear-gradient(to bottom, #fafafa 0%, #fff 100%);
     }
-
+    
+    .job-title-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+        margin-bottom: 12px;
+    }
+    
     .job-card-header h3 {
-        color: #1e293b !important;
-        font-size: 1.25rem !important;
-        font-weight: 700 !important;
-        margin: 0 !important;
-        flex: 1 !important;
+        font-family: 'Playfair Display', serif;
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: #000;
+        margin: 0;
+        line-height: 1.3;
+        flex: 1;
     }
-
-    .company-logo {
-        width: 50px !important;
-        height: 50px !important;
-        background: #6366f1 !important;
-        color: white !important;
-        font-weight: bold !important;
-        border-radius: 12px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        font-size: 1.2rem !important;
-        flex-shrink: 0 !important;
-    }
-
-    .company-logo.blue {
-        background: #0ea5e9 !important;
-    }
-
-    .company-logo.green {
-        background: #10b981 !important;
-    }
-
-    .company-logo.orange {
-        background: #f59e0b !important;
-    }
-
-    .company {
-        color: #64748b !important;
-        font-size: 0.9rem !important;
-        margin: 5px 0 0 0 !important;
-    }
-
+    
     .salary {
-        margin-left: auto !important;
-        font-weight: bold !important;
-        color: #16a34a !important;
-        font-size: 1rem !important;
-        background: #f0f9f4 !important;
-        padding: 6px 12px !important;
-        border-radius: 8px !important;
-        border: 1px solid #d1fae5 !important;
+        font-family: 'Playfair Display', serif;
+        font-weight: 700;
+        color: #000;
+        font-size: 1.4rem;
+        white-space: nowrap;
+        padding: 8px 16px;
+        background: #fff;
+        border-radius: 8px;
+        border: 2px solid #000;
     }
-
-    /* JOB DESCRIPTION */
+    
+    .company-info {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+    
+    .company {
+        color: #555;
+        font-size: 1rem;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 600;
+    }
+    
+    .company i {
+        color: #999;
+    }
+    
+    .location-badge {
+        background: #f1f5f9;
+        color: #475569;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+    
+    /* Job Content */
+    .job-content {
+        padding: 0 35px;
+    }
+    
+    /* Job Description */
     .job-description {
-        margin: 15px 0 !important;
-        color: #475569 !important;
-        line-height: 1.6 !important;
+        color: #555;
+        line-height: 1.8;
+        margin: 0 0 25px 0;
+        font-size: 1rem;
     }
-
-    /* JOB TAGS */
+    
+    /* Job Tags */
     .job-tags {
-        margin: 20px 0 !important;
-        display: flex !important;
-        gap: 8px !important;
-        flex-wrap: wrap !important;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 0 0 25px 0;
     }
-
+    
     .job-tags span {
-        background: #eef2ff !important;
-        padding: 6px 12px !important;
-        border-radius: 20px !important;
-        font-size: 0.85rem !important;
-        color: #6366f1 !important;
-        font-weight: 600 !important;
-        border: 1px solid #e0e7ff !important;
-        transition: all 0.3s ease !important;
+        background: #f5f5f5;
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        color: #333;
+        font-weight: 500;
+        border: 1px solid #e5e5e5;
+        transition: all 0.3s ease;
     }
-
+    
     .job-tags span:hover {
-        background: #6366f1 !important;
-        color: white !important;
-        transform: translateY(-2px) !important;
+        background: #000;
+        color: #fff;
+        border-color: #000;
     }
-
-    /* JOB FOOTER */
+    
+    /* Job Footer */
     .job-footer {
-        display: flex !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        margin-top: 20px !important;
-        padding-top: 20px !important;
-        border-top: 1px solid #f1f5f9 !important;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 25px 35px 35px 35px;
+        background: #fafafa;
+        border-top: 1px solid #f0f0f0;
     }
-
+    
     .posted {
-        color: #64748b !important;
-        font-size: 0.85rem !important;
+        color: #999;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 6px;
     }
-
+    
+    .posted i {
+        font-size: 0.85rem;
+    }
+    
     .apply-btn {
-        background: linear-gradient(135deg,#6366f1,#8b5cf6) !important;
-        color: white !important;
-        padding: 10px 20px !important;
-        border-radius: 8px !important;
-        text-decoration: none !important;
-        font-weight: 600 !important;
-        transition: all 0.3s ease !important;
-        border: none !important;
+        background: #000;
+        color: #fff;
+        padding: 12px 28px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+        border: 2px solid #000;
+        text-transform: uppercase;
+        font-size: 0.85rem;
     }
-
+    
     .apply-btn:hover {
-        color: white !important;
-        text-decoration: none !important;
-        transform: translateY(-2px) !important;
-        box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3) !important;
+        background: #fff;
+        color: #000;
+        text-decoration: none;
+        transform: translateY(-2px);
+    }
+    
+    /* View More (full-width banner) */
+    .view-more-wrapper {
+        padding: 24px 35px 40px 35px;
+        display: flex;
+        justify-content: flex-start;
     }
 
-    /* SIDEBAR */
+    .view-more-banner {
+        width: 100%;
+        background: #000;
+        color: #fff;
+        padding: 28px 20px;
+        text-align: center;
+        border-radius: 6px;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    }
+
+    .view-more-banner a { text-decoration: none; color: inherit; display: block; }
+
+    .view-more-banner h3 {
+        margin: 0;
+        font-family: 'Playfair Display', serif;
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #fff;
+    }
+
+    .view-more-banner .sub {
+        margin-top: 8px;
+        color: #e5e7eb;
+        font-size: 0.85rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+        .view-more-wrapper { padding: 18px; }
+        .view-more-banner h3 { font-size: 1.25rem; }
+        .view-more-banner .sub { font-size: 0.78rem; letter-spacing: 1px; }
+    }
+    
+    /* Sidebar */
+    .sidebar {
+        position: sticky;
+        top: 100px;
+        height: fit-content;
+    }
+    
     .sidebar-box {
-        background: white !important;
-        padding: 25px !important;
-        border-radius: 16px !important;
-        margin-bottom: 20px !important;
-        border: 1px solid #e2e8f0 !important;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
+        background: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        margin-bottom: 25px;
+        border: 1px solid #e5e5e5;
     }
-
+    
     .sidebar-box h4 {
-        color: #1e293b !important;
-        margin: 0 0 20px 0 !important;
-        font-size: 1.2rem !important;
-        font-weight: 700 !important;
-        padding-bottom: 15px !important;
-        border-bottom: 2px solid #f1f5f9 !important;
+        font-family: 'Playfair Display', serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #000;
+        margin: 0 0 25px 0;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #f5f5f5;
     }
-
+    
     .company-item {
-        display: flex !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        padding: 12px 0 !important;
-        border-bottom: 1px solid #f8fafc !important;
-        transition: all 0.3s ease !important;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+        border-bottom: 1px solid #f8f8f8;
+        transition: all 0.3s ease;
     }
 
-    .company-item:hover {
-        background: #f8fafc !important;
-        border-radius: 6px !important;
-        margin: 0 -10px !important;
-        padding: 12px 10px !important;
+    /* Premium Upgrade Card (sidebar) */
+    .premium-box {
+        background: #000;
+        color: #fff;
+        padding: 26px;
+        border-radius: 12px;
+        text-align: center;
+        border: 1px solid rgba(255,255,255,0.06);
     }
 
+    .premium-box .premium-icon {
+        font-size: 28px;
+        color: #fff;
+        margin-bottom: 10px;
+    }
+
+    .premium-box .premium-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin: 0 0 8px 0;
+    }
+
+    .premium-box .premium-desc {
+        color: #d1d5db;
+        font-size: 0.95rem;
+        margin-bottom: 14px;
+        line-height: 1.5;
+    }
+
+    .premium-box .premium-cta {
+        display: inline-block;
+        padding: 10px 22px;
+        border-radius: 6px;
+        border: 1px solid rgba(255,255,255,0.18);
+        color: #fff;
+        text-decoration: none;
+        font-weight: 700;
+        background: transparent;
+        transition: background 0.18s ease, color 0.18s ease, transform 0.12s ease;
+    }
+
+    .premium-box .premium-cta:hover {
+        background: #fff;
+        color: #000;
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+        .premium-box { padding: 18px; }
+        .premium-box .premium-title { font-size: 1.05rem; }
+    }
+    
     .company-item:last-child {
-        border-bottom: none !important;
+        border-bottom: none;
+        padding-bottom: 0;
     }
-
-    /* RESPONSIVE */
-    @media(max-width:900px){
+    
+    .company-item span {
+        font-weight: 500;
+        color: #333;
+        font-size: 0.95rem;
+    }
+    
+    .company-item label {
+        color: #999;
+        font-size: 0.85rem;
+    }
+    
+    .company-item:hover {
+        padding-left: 10px;
+        color: #000;
+    }
+    
+    .company-item:hover span {
+        color: #000;
+        font-weight: 600;
+    }
+    
+    /* Skills in Sidebar */
+    .skill {
+        display: inline-block;
+        background: #f5f5f5;
+        padding: 10px 18px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        color: #333;
+        margin: 0 8px 10px 0;
+        border: 1px solid #e5e5e5;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .skill:hover {
+        background: #000;
+        color: #fff;
+        border-color: #000;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 1200px) {
         .jobs-grid {
-            grid-template-columns: 1fr !important;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
         }
-
-        .jobs-header {
-            flex-direction: column !important;
-            align-items: flex-start !important;
+        
+        .jobs-container {
+            padding: 100px 30px 60px 30px;
         }
-
+    }
+    
+    @media (max-width: 1024px) {
+        .filter-form {
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .search-btn {
+            grid-column: 1 / -1;
+        }
+        
+        .jobs-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .sidebar {
+            position: relative;
+            top: 0;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .jobs-container {
+            padding: 90px 20px 50px 20px;
+        }
+        
+        .jobs-header h1 {
+            font-size: 2.5rem;
+        }
+        
         .jobs-header-stats {
-            margin-top: 20px !important;
-            width: 100% !important;
+            flex-direction: column;
+            gap: 25px;
         }
-
+        
+        .filter-form {
+            grid-template-columns: 1fr;
+        }
+        
         .filter-bar {
-            flex-direction: column !important;
-            gap: 10px !important;
+            padding: 20px;
         }
-
-        .filter-input, .filter-bar select {
-            width: 100% !important;
+        
+        .job-card-header {
+            padding: 25px 25px 20px 25px;
+        }
+        
+        .job-title-row {
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .job-card-header h3 {
+            font-size: 1.5rem;
+        }
+        
+        .salary {
+            align-self: flex-start;
+            font-size: 1.2rem;
+        }
+        
+        .company-info {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .job-content {
+            padding: 0 25px;
+        }
+        
+        .job-footer {
+            flex-direction: column;
+            gap: 15px;
+            align-items: flex-start;
+            padding: 20px 25px 25px 25px;
+        }
+        
+        .apply-btn {
+            width: 100%;
+            text-align: center;
         }
     }
 </style>
@@ -363,25 +630,23 @@
 
     <!-- HEADER -->
     <div class="jobs-header">
-        <div>
-            <h1>Find Your Dream Job</h1>
-            <p>Explore 1,250+ curated opportunities from top companies</p>
-        </div>
-
+        <h1>Curated Opportunities</h1>
+        <p>Discover 1,250+ roles from global leaders in technology and innovation</p>
+        
         <div class="jobs-header-stats">
             <div class="stat-box">
                 <span>1,250+</span>
-                <label>Jobs</label>
+                <label>Active Positions</label>
             </div>
 
             <div class="stat-box">
                 <span>320+</span>
-                <label>Companies</label>
+                <label>Partner Firms</label>
             </div>
 
             <div class="stat-box">
                 <span>Remote</span>
-                <label>Available</label>
+                <label>Global Access</label>
             </div>
         </div>
     </div>
@@ -389,31 +654,33 @@
 
     <!-- FILTER BAR -->
     <div class="filter-bar">
+        <div class="filter-form">
+            <div class="filter-input">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search by role, skill, or company">
+            </div>
 
-        <div class="filter-input">
-            <i class="fas fa-search"></i>
-            <input type="text" placeholder="Search job title, skill, or company">
+            <select title="Select location">
+                <option>All Locations</option>
+                <option>Remote</option>
+                <option>India</option>
+                <option>United States</option>
+                <option>Europe</option>
+                <option>Asia Pacific</option>
+            </select>
+
+            <select title="Select experience level">
+                <option>Experience Level</option>
+                <option>Entry Level</option>
+                <option>Mid-Level (3-5y)</option>
+                <option>Senior (5-10y)</option>
+                <option>Principal (10+y)</option>
+            </select>
+
+            <button class="search-btn">
+                Search
+            </button>
         </div>
-
-        <select>
-            <option>All Locations</option>
-            <option>Remote</option>
-            <option>India</option>
-            <option>USA</option>
-            <option>Europe</option>
-        </select>
-
-        <select>
-            <option>Experience Level</option>
-            <option>Fresher</option>
-            <option>Mid-Level</option>
-            <option>Senior</option>
-        </select>
-
-        <button class="search-btn">
-            Search
-        </button>
-
     </div>
 
 
@@ -429,47 +696,37 @@
             <div class="job-card">
 
                 <div class="job-card-header">
-
-                    <div class="company-logo">
-                        T
-                    </div>
-
-                    <div>
+                    <div class="job-title-row">
                         <h3>Senior Software Engineer</h3>
-                        <p class="company">TechCorp Inc. • Remote</p>
+                        <div class="salary">$120k–150k</div>
                     </div>
-
-                    <div class="salary">
-                        $120k–150k
+                    <div class="company-info">
+                        <p class="company"><i class="fas fa-building"></i> TechCorp Inc.</p>
+                        <span class="location-badge"><i class="fas fa-map-marker-alt"></i> Remote</span>
                     </div>
-
                 </div>
 
+                <div class="job-content">
+                    <p class="job-description">
+                        Build scalable AI infrastructure using Python, Kubernetes, and AWS. Collaborate with world-class engineers solving complex distributed systems challenges. Lead architectural decisions and mentor junior developers.
+                    </p>
 
-                <p class="job-description">
-                    Build scalable AI infrastructure using Python, Kubernetes, and AWS.
-                    Work with world-class engineers solving global problems.
-                </p>
-
-
-                <div class="job-tags">
-                    <span>Python</span>
-                    <span>AWS</span>
-                    <span>Kubernetes</span>
-                    <span>AI</span>
+                    <div class="job-tags">
+                        <span>Python</span>
+                        <span>AWS</span>
+                        <span>Kubernetes</span>
+                        <span>AI/ML</span>
+                        <span>Microservices</span>
+                    </div>
                 </div>
-
 
                 <div class="job-footer">
-
                     <span class="posted">
-                        Posted 2 days ago
+                        <i class="far fa-clock"></i> Posted 2 days ago
                     </span>
-
-                    <a href="/application/apply/" class="apply-btn">
+                    <a href="/users/auth/?next=/application/apply/" class="apply-btn">
                         Apply Now
                     </a>
-
                 </div>
 
             </div>
@@ -477,53 +734,131 @@
 
 
             <!-- JOB CARD -->
-            <div class="job-card">
+            <div class="job-card accent-blue">
 
                 <div class="job-card-header">
-
-                    <div class="company-logo blue">
-                        D
-                    </div>
-
-                    <div>
+                    <div class="job-title-row">
                         <h3>Machine Learning Engineer</h3>
-                        <p class="company">DataFlow Systems • San Francisco</p>
+                        <div class="salary">$130k–170k</div>
                     </div>
-
-                    <div class="salary">
-                        $130k–170k
+                    <div class="company-info">
+                        <p class="company"><i class="fas fa-building"></i> DataFlow Systems</p>
+                        <span class="location-badge"><i class="fas fa-map-marker-alt"></i> San Francisco</span>
                     </div>
-
                 </div>
 
+                <div class="job-content">
+                    <p class="job-description">
+                        Develop production ML pipelines using PyTorch and TensorFlow. Design and implement modern data engineering solutions. Work on cutting-edge problems in computer vision and natural language processing.
+                    </p>
 
-                <p class="job-description">
-                    Develop ML pipelines using PyTorch, TensorFlow, and modern data engineering tools.
-                </p>
-
-
-                <div class="job-tags">
-                    <span>PyTorch</span>
-                    <span>TensorFlow</span>
-                    <span>SQL</span>
+                    <div class="job-tags">
+                        <span>PyTorch</span>
+                        <span>TensorFlow</span>
+                        <span>SQL</span>
+                        <span>Computer Vision</span>
+                        <span>NLP</span>
+                    </div>
                 </div>
-
 
                 <div class="job-footer">
-
                     <span class="posted">
-                        Posted 5 days ago
+                        <i class="far fa-clock"></i> Posted 5 days ago
                     </span>
-
-                    <a href="/application/apply/" class="apply-btn">
+                    <a href="/users/auth/?next=/application/apply/" class="apply-btn">
                         Apply Now
                     </a>
+                </div>
 
+            </div>
+            
+            
+            <!-- JOB CARD -->
+            <div class="job-card accent-green">
+
+                <div class="job-card-header">
+                    <div class="job-title-row">
+                        <h3>Product Designer</h3>
+                        <div class="salary">$100k–130k</div>
+                    </div>
+                    <div class="company-info">
+                        <p class="company"><i class="fas fa-building"></i> GreenTech Solutions</p>
+                        <span class="location-badge"><i class="fas fa-map-marker-alt"></i> Remote</span>
+                    </div>
+                </div>
+
+                <div class="job-content">
+                    <p class="job-description">
+                        Lead end-to-end design for sustainability-focused products. Create intuitive interfaces that drive user engagement. Collaborate with cross-functional teams to ship world-class experiences.
+                    </p>
+
+                    <div class="job-tags">
+                        <span>Figma</span>
+                        <span>UI/UX</span>
+                        <span>Design Systems</span>
+                        <span>User Research</span>
+                    </div>
+                </div>
+
+                <div class="job-footer">
+                    <span class="posted">
+                        <i class="far fa-clock"></i> Posted 1 week ago
+                    </span>
+                    <a href="/users/auth/?next=/application/apply/" class="apply-btn">
+                        Apply Now
+                    </a>
+                </div>
+
+            </div>
+            
+            
+            <!-- JOB CARD -->
+            <div class="job-card accent-orange">
+
+                <div class="job-card-header">
+                    <div class="job-title-row">
+                        <h3>DevOps Engineer</h3>
+                        <div class="salary">$90k–120k</div>
+                    </div>
+                    <div class="company-info">
+                        <p class="company"><i class="fas fa-building"></i> VentureTech Labs</p>
+                        <span class="location-badge"><i class="fas fa-map-marker-alt"></i> India</span>
+                    </div>
+                </div>
+
+                <div class="job-content">
+                    <p class="job-description">
+                        Architect and maintain cloud infrastructure at scale. Implement CI/CD pipelines, monitoring systems, and infrastructure-as-code solutions. Ensure reliability and performance of production systems.
+                    </p>
+
+                    <div class="job-tags">
+                        <span>Docker</span>
+                        <span>Terraform</span>
+                        <span>Jenkins</span>
+                        <span>AWS</span>
+                        <span>Monitoring</span>
+                    </div>
+                </div>
+
+                <div class="job-footer">
+                    <span class="posted">
+                        <i class="far fa-clock"></i> Posted 3 days ago
+                    </span>
+                    <a href="/users/auth/?next=/application/apply/" class="apply-btn">
+                        Apply Now
+                    </a>
                 </div>
 
             </div>
 
-
+            <div class="view-more-wrapper">
+                <div class="view-more-banner">
+                    <a href="/jobs/?page=2">
+                        <h3>View More Jobs</h3>
+                        <div class="sub">Browse 1,200+ curated listings</div>
+                    </a>
+                </div>
+            </div>
 
         </div>
 
@@ -536,26 +871,31 @@
             <!-- TOP COMPANIES -->
             <div class="sidebar-box">
 
-                <h4>Top Companies</h4>
+                <h4>Featured Companies</h4>
 
                 <div class="company-item">
-                    <span>TechCorp</span>
-                    <label>120 Jobs</label>
+                    <span>TechCorp Inc.</span>
+                    <label>120 openings</label>
                 </div>
 
                 <div class="company-item">
                     <span>Google</span>
-                    <label>80 Jobs</label>
+                    <label>80 openings</label>
                 </div>
 
                 <div class="company-item">
                     <span>Amazon</span>
-                    <label>65 Jobs</label>
+                    <label>65 openings</label>
                 </div>
 
                 <div class="company-item">
                     <span>Microsoft</span>
-                    <label>95 Jobs</label>
+                    <label>95 openings</label>
+                </div>
+                
+                <div class="company-item">
+                    <span>Meta</span>
+                    <label>45 openings</label>
                 </div>
 
             </div>
@@ -565,14 +905,26 @@
             <!-- SKILLS -->
             <div class="sidebar-box">
 
-                <h4>Popular Skills</h4>
+                <h4>In-Demand Skills</h4>
 
                 <div class="skill">Python</div>
                 <div class="skill">React</div>
                 <div class="skill">AI / ML</div>
                 <div class="skill">AWS</div>
                 <div class="skill">Docker</div>
+                <div class="skill">Kubernetes</div>
+                <div class="skill">TypeScript</div>
+                <div class="skill">System Design</div>
 
+            </div>
+
+            <div class="sidebar-box premium-box">
+                <div class="premium-icon">
+                    <i class="fas fa-gem"></i>
+                </div>
+                <div class="premium-title">Upgrade to Premium</div>
+                <div class="premium-desc">Get early access to jobs and AI interview coaching.</div>
+                <a href="/premium/" class="premium-cta">Learn More</a>
             </div>
 
 

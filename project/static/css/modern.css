@@ -1,0 +1,170 @@
+/* Modern UI classes for home.html */
+.modern-hero {
+    background: #fff;
+    padding: 80px 0 60px 0;
+    text-align: center;
+}
+.modern-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.2rem;
+    font-weight: 700;
+    margin-bottom: 18px;
+    color: #222;
+}
+.modern-italic {
+    font-style: italic;
+}
+.modern-desc {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.15rem;
+    max-width: 600px;
+    margin: 0 auto 40px auto;
+    color: #555;
+    line-height: 1.6;
+}
+.modern-input {
+    flex: 1;
+    min-width: 200px;
+    padding: 15px 20px;
+    border-radius: 10px;
+    font-size: 16px;
+    background: #fafafa;
+    border: 1px solid #eee;
+    margin-bottom: 0;
+}
+.modern-btn {
+    background: #111;
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 16px;
+    min-width: 150px;
+    transition: background 0.2s;
+}
+.modern-btn:hover {
+    background: #222;
+}
+.modern-stat {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #111;
+    margin: 0 0 10px 0;
+}
+.modern-stat-desc {
+    color: #888;
+    font-size: 1rem;
+    font-weight: 500;
+}
+/* Modern UI CSS for CareerConnect style */
+body, html {
+    font-family: 'Playfair Display', 'Montserrat', 'Arial', sans-serif;
+    background: #fff;
+    color: #222;
+    margin: 0;
+    padding: 0;
+}
+
+header, nav, .navbar {
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.navbar-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #222 !important;
+}
+
+.navbar-nav .nav-link {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #222 !important;
+    margin-left: 1.5rem;
+    letter-spacing: 0.02em;
+}
+
+.btn-auth {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    background: #222;
+    color: #fff !important;
+    border-radius: 4px;
+    padding: 0.4rem 1.2rem;
+    margin-left: 1rem;
+}
+
+main {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: #222;
+    background: #fff;
+}
+
+footer {
+    background: #111;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    padding: 2.5rem 0 1.5rem 0;
+    margin-top: 3rem;
+}
+.footer-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+    justify-content: space-between;
+}
+.footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin-bottom: 0.7rem;
+}
+.footer-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.footer-links li {
+    margin-bottom: 0.4rem;
+}
+.footer-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+.footer-links a:hover {
+    color: #e0e0e0;
+}
+.footer-bottom {
+    margin-top: 2rem;
+    font-size: 0.95rem;
+    color: #bbb;
+    text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .footer-grid {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    .navbar-nav .nav-link {
+        margin-left: 0.7rem;
+    }
+}
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap');

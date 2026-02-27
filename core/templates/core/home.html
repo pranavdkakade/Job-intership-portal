@@ -5,457 +5,952 @@
 
 {% block extra_css %}
 <style>
-    /* HOME HERO SECTION */
-    .home-hero {
-        text-align: center !important;
-        padding: 80px 0 60px 0 !important;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-        color: white !important;
-        margin: -20px -15px 60px -15px !important;
-        border-radius: 0 0 20px 20px !important;
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap');
+    
+    /* Global Styles */
+    body {
+        font-family: 'Montserrat', sans-serif;
+        color: #222;
+        background: #fff;
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
     }
-
-    .home-hero h1 {
-        font-size: 3.5rem !important;
-        font-weight: 700 !important;
-        margin-bottom: 20px !important;
-        color: white !important;
+    
+    /* Hero Section */
+    .hero-section {
+        background: #fff;
+        padding: 100px 20px;
+        margin-top: 80px;
     }
-
-    .home-hero p {
-        font-size: 1.2rem !important;
-        margin-bottom: 40px !important;
-        opacity: 0.9 !important;
-        max-width: 600px !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-        line-height: 1.6 !important;
+    
+    .hero-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
     }
-
-    /* HOME SEARCH FORM */
-    .home-search {
-        display: flex !important;
-        gap: 15px !important;
-        max-width: 700px !important;
-        margin: 0 auto !important;
-        padding: 0 20px !important;
-        flex-wrap: wrap !important;
-        justify-content: center !important;
+    
+    .hero-content {
+        padding-left: 20px;
     }
-
-    .home-search input,
-    .home-search select {
-        flex: 1 !important;
-        min-width: 200px !important;
-        padding: 15px 20px !important;
-        border: none !important;
-        border-radius: 10px !important;
-        font-size: 16px !important;
-        background: rgba(255, 255, 255, 0.95) !important;
-        backdrop-filter: blur(10px) !important;
-        transition: all 0.3s ease !important;
+    
+    .hero-label {
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        font-size: 11px;
+        color: #999;
+        margin-bottom: 25px;
+        font-weight: 500;
     }
-
-    .home-search input:focus,
-    .home-search select:focus {
-        outline: none !important;
-        background: white !important;
-        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3) !important;
+    
+    .hero-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 4.2rem;
+        font-weight: 700;
+        line-height: 1.1;
+        color: #000;
+        margin: 0 0 25px 0;
     }
-
-    .home-search button {
-        background: white !important;
-        color: #667eea !important;
-        border: none !important;
-        padding: 15px 30px !important;
-        border-radius: 10px !important;
-        font-weight: 700 !important;
-        font-size: 16px !important;
-        cursor: pointer !important;
-        transition: all 0.3s ease !important;
-        min-width: 150px !important;
+    
+    .hero-title .italic {
+        font-style: italic;
     }
-
-    .home-search button:hover {
-        background: #f8f9ff !important;
-        transform: translateY(-2px) !important;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2) !important;
+    
+    .hero-description {
+        font-size: 1.1rem;
+        color: #666;
+        line-height: 1.7;
+        max-width: 500px;
+        margin-bottom: 40px;
     }
-
-    /* STATS SECTION */
-    .home-stats {
-        display: grid !important;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
-        gap: 30px !important;
-        margin: 60px 0 !important;
-        padding: 0 20px !important;
+    
+    .hero-form {
+        display: flex;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        max-width: 700px;
     }
-
-    .stat-card {
-        text-align: center !important;
-        padding: 30px 20px !important;
-        background: white !important;
-        border-radius: 16px !important;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08) !important;
-        transition: all 0.3s ease !important;
-        border: 1px solid #e2e8f0 !important;
+    
+    .form-group {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        padding: 16px 20px;
+        border-right: 1px solid #eee;
     }
-
-    .stat-card:hover {
-        transform: translateY(-5px) !important;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15) !important;
+    
+    .form-group:last-of-type {
+        border-right: none;
     }
-
-    .stat-card h3 {
-        font-size: 2.5rem !important;
-        font-weight: 700 !important;
-        color: #667eea !important;
-        margin: 0 0 10px 0 !important;
+    
+    .form-group svg {
+        width: 18px;
+        height: 18px;
+        color: #999;
+        margin-right: 12px;
+        flex-shrink: 0;
     }
-
-    .stat-card span {
-        color: #64748b !important;
-        font-size: 1rem !important;
-        font-weight: 500 !important;
+    
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        border: none;
+        outline: none;
+        background: transparent;
+        font-size: 15px;
+        color: #222;
+        font-family: 'Montserrat', sans-serif;
     }
-
-    /* SECTION TITLE */
+    
+    .form-group input::placeholder {
+        color: #999;
+    }
+    
+    .hero-form button {
+        background: #000;
+        color: #fff;
+        border: none;
+        padding: 20px 35px;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: background 0.3s;
+        font-family: 'Montserrat', sans-serif;
+    }
+    
+    .hero-form button:hover {
+        background: #333;
+    }
+    
+    .hero-image {
+        border: 1px solid #e5e5e5;
+        border-radius: 12px;
+        height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fafafa;
+    }
+    
+    .hero-image-circle {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        border: 1px solid #e5e5e5;
+        background: #fff;
+    }
+    
+    /* Stats Section */
+    .stats-section {
+        border-top: 1px solid #e5e5e5;
+        background: #fff;
+        margin: 60px 0;
+    }
+    
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .stat-item {
+        text-align: center;
+        padding: 60px 20px;
+        border-right: 1px solid #e5e5e5;
+    }
+    
+    .stat-item:last-child {
+        border-right: none;
+    }
+    
+    .stat-number {
+        font-family: 'Playfair Display', serif;
+        font-size: 3.5rem;
+        font-weight: 700;
+        color: #000;
+        margin: 0 0 10px 0;
+    }
+    
+    .stat-label {
+        text-transform: uppercase;
+        font-size: 11px;
+        letter-spacing: 2px;
+        color: #999;
+        font-weight: 500;
+    }
+    
+    /* About Section */
+    .about-section {
+        background: #fff;
+        padding: 100px 20px;
+        margin-bottom: 0;
+    }
+    
+    .about-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    /* Our Story */
+    .about-story-section {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        gap: 80px;
+        margin-bottom: 100px;
+        align-items: start;
+    }
+    
+    .about-story-section h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #000;
+        margin: 0;
+        position: relative;
+        padding-bottom: 20px;
+    }
+    
+    .about-story-section h3::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 80px;
+        height: 3px;
+        background: #000;
+    }
+    
+    .story-content {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+    
+    .story-intro {
+        font-size: 1.15rem;
+        line-height: 1.8;
+        color: #2c5aa0;
+        margin: 0;
+    }
+    
+    .story-details {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+    
+    .story-details p {
+        font-size: 1rem;
+        line-height: 1.7;
+        color: #2c5aa0;
+        margin: 0;
+    }
+    
+    /* Powered by Rison AI */
+    .rison-section {
+        background: #f8f8f8;
+        padding: 80px 60px;
+        margin: 0 -20px 100px -20px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+    }
+    
+    .rison-visual {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .rison-logo {
+        width: 280px;
+        height: 280px;
+        background: #fff;
+        border-radius: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    }
+    
+    .rison-logo::before {
+        content: '';
+        position: absolute;
+        width: 320px;
+        height: 320px;
+        border: 2px solid #e0e0e0;
+        border-radius: 12px;
+        transform: rotate(10deg);
+    }
+    
+    .rison-logo-text {
+        font-family: 'Playfair Display', serif;
+        font-size: 4rem;
+        font-weight: 700;
+        font-style: italic;
+        color: #000;
+        z-index: 1;
+    }
+    
+    .rison-content h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #000;
+        margin: 0 0 25px 0;
+    }
+    
+    .rison-content > p {
+        font-size: 1rem;
+        line-height: 1.7;
+        color: #555;
+        margin-bottom: 35px;
+    }
+    
+    .rison-features {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+    
+    .rison-feature {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .feature-icon {
+        width: 24px;
+        height: 24px;
+        background: #000;
+        border-radius: 4px;
+        flex-shrink: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 2px;
+    }
+    
+    .feature-icon svg {
+        width: 16px;
+        height: 16px;
+        fill: #fff;
+    }
+    
+    .rison-feature h4 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #000;
+        margin: 0 0 5px 0;
+    }
+    
+    .rison-feature p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: #666;
+        margin: 0;
+    }
+    
+    /* Our Philosophy */
+    .philosophy-section {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        gap: 80px;
+        margin-bottom: 80px;
+        align-items: start;
+    }
+    
+    .philosophy-header h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #000;
+        margin: 0 0 20px 0;
+        position: relative;
+        padding-bottom: 20px;
+    }
+    
+    .philosophy-header h3::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 80px;
+        height: 3px;
+        background: #000;
+    }
+    
+    .philosophy-header p {
+        font-size: 0.95rem;
+        line-height: 1.7;
+        color: #2c5aa0;
+    }
+    
+    .philosophy-values {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+    }
+    
+    .value-item {
+        display: grid;
+        grid-template-columns: 60px 1fr;
+        gap: 25px;
+        align-items: start;
+    }
+    
+    .value-icon-box {
+        width: 60px;
+        height: 60px;
+        border: 2px solid #000;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+    }
+    
+    .value-icon-box svg {
+        width: 28px;
+        height: 28px;
+        stroke: #000;
+        fill: none;
+    }
+    
+    .value-content h4 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #000;
+        margin: 0 0 12px 0;
+    }
+    
+    .value-content p {
+        font-size: 1rem;
+        line-height: 1.7;
+        color: #2c5aa0;
+        margin: 0;
+    }
+    
+    /* Quote Section */
+    .quote-section {
+        text-align: center;
+        padding: 80px 20px;
+        border-top: 1px solid #e5e5e5;
+        margin-top: 60px;
+    }
+    
+    .quote-icon {
+        font-size: 4rem;
+        color: #ddd;
+        margin-bottom: 30px;
+        line-height: 1;
+    }
+    
+    .quote-text {
+        font-family: 'Playfair Display', serif;
+        font-size: 2rem;
+        font-style: italic;
+        font-weight: 400;
+        color: #000;
+        max-width: 900px;
+        margin: 0 auto 25px auto;
+        line-height: 1.5;
+    }
+    
+    .quote-author {
+        font-size: 0.85rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: #999;
+        font-weight: 500;
+    }
+    
+    /* Section Title */
     .section-title {
-        text-align: center !important;
-        font-size: 2.5rem !important;
-        font-weight: 700 !important;
-        color: #1e293b !important;
-        margin: 60px 0 40px 0 !important;
+        font-family: 'Playfair Display', serif;
+        font-size: 2.8rem;
+        font-weight: 700;
+        text-align: center;
+        color: #000;
+        margin: 80px 0 50px 0;
     }
-
-    /* CATEGORY GRID */
+    
+    /* Category Grid */
     .category-grid {
-        display: grid !important;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
-        gap: 25px !important;
-        margin: 40px 0 60px 0 !important;
-        padding: 0 20px !important;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto 80px auto;
+        padding: 0 20px;
     }
-
+    
     .category-card {
-        background: white !important;
-        padding: 30px 25px !important;
-        border-radius: 16px !important;
-        text-align: center !important;
-        transition: all 0.3s ease !important;
-        border: 1px solid #e2e8f0 !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
-        position: relative !important;
-        overflow: hidden !important;
+        background: #fff;
+        border: 1px solid #e5e5e5;
+        border-radius: 8px;
+        padding: 40px 30px;
+        text-align: center;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
     }
-
+    
     .category-card::before {
         content: '';
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
-        height: 4px;
-        background: linear-gradient(135deg, #667eea, #764ba2);
+        height: 3px;
+        background: #000;
         transform: scaleX(0);
         transition: transform 0.3s ease;
     }
-
+    
     .category-card:hover {
-        transform: translateY(-8px) !important;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1) !important;
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
     }
-
+    
     .category-card:hover::before {
         transform: scaleX(1);
     }
-
-    .category-icon {
-        font-size: 3rem !important;
-        color: #667eea !important;
-        margin-bottom: 20px !important;
+    
+    .category-card strong {
+        display: block;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #000;
+        margin-bottom: 12px;
     }
-
-    .category-card h3 {
-        color: #1e293b !important;
-        font-size: 1.3rem !important;
-        font-weight: 700 !important;
-        margin: 0 0 15px 0 !important;
+    
+    .category-card span {
+        color: #666;
+        font-size: 0.95rem;
     }
-
-    .category-card p {
-        color: #64748b !important;
-        line-height: 1.6 !important;
-        margin: 0 0 20px 0 !important;
-    }
-
-    .category-card .job-count {
-        background: #f0f9f4 !important;
-        color: #16a34a !important;
-        padding: 8px 16px !important;
-        border-radius: 20px !important;
-        font-weight: 600 !important;
-        display: inline-block !important;
-        margin-top: 10px !important;
-        font-size: 0.9rem !important;
-    }
-
-    /* FEATURE GRID */
+    
+    /* Feature Grid */
     .feature-grid {
-        display: grid !important;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
-        gap: 30px !important;
-        margin: 40px 0 60px 0 !important;
-        padding: 0 20px !important;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 35px;
+        max-width: 1200px;
+        margin: 0 auto 80px auto;
+        padding: 0 20px;
     }
-
+    
     .feature-card {
-        background: white !important;
-        padding: 35px 30px !important;
-        border-radius: 16px !important;
-        text-align: center !important;
-        transition: all 0.3s ease !important;
-        border: 1px solid #e2e8f0 !important;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08) !important;
-        position: relative !important;
-        overflow: hidden !important;
+        background: #fff;
+        border: 1px solid #e5e5e5;
+        border-radius: 8px;
+        padding: 45px 35px;
+        transition: all 0.3s ease;
+        position: relative;
     }
-
+    
     .feature-card::before {
         content: '';
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
-        height: 4px;
-        background: linear-gradient(135deg, #10b981, #3b82f6);
+        height: 3px;
+        background: linear-gradient(90deg, #000, #444);
         transform: scaleX(0);
         transition: transform 0.3s ease;
     }
-
+    
     .feature-card:hover {
-        transform: translateY(-8px) !important;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12) !important;
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.1);
     }
-
+    
     .feature-card:hover::before {
         transform: scaleX(1);
     }
-
+    
     .feature-card h4 {
-        color: #1e293b !important;
-        font-size: 1.4rem !important;
-        font-weight: 700 !important;
-        margin: 0 0 15px 0 !important;
+        font-family: 'Playfair Display', serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #000;
+        margin: 0 0 18px 0;
     }
-
+    
     .feature-card p {
-        color: #64748b !important;
-        line-height: 1.6 !important;
-        margin: 0 !important;
-        font-size: 1rem !important;
+        color: #666;
+        font-size: 1rem;
+        line-height: 1.7;
+        margin: 0;
     }
-
-    /* HOME CTA SECTION */
+    
+    /* CTA Section */
     .home-cta {
-        background: linear-gradient(135deg, #667eea, #764ba2) !important;
-        color: white !important;
-        padding: 50px 30px !important;
-        border-radius: 20px !important;
-        text-align: center !important;
-        margin: 60px 0 40px 0 !important;
-        position: relative !important;
-        overflow: hidden !important;
+        background: #000;
+        color: #fff;
+        padding: 80px 40px;
+        text-align: center;
+        margin: 80px auto 60px auto;
+        max-width: 1200px;
+        border-radius: 12px;
     }
-
-    .home-cta::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-        transform: rotate(45deg);
-        animation: shine 3s infinite;
-    }
-
-    @keyframes shine {
-        0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-        50% { transform: translateX(0%) translateY(0%) rotate(45deg); }
-        100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-    }
-
+    
     .home-cta h3 {
-        font-size: 2.2rem !important;
-        font-weight: 700 !important;
-        margin: 0 0 15px 0 !important;
-        color: white !important;
-        position: relative !important;
-        z-index: 2 !important;
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 0 0 15px 0;
+        color: #fff;
     }
-
+    
     .home-cta p {
-        font-size: 1.1rem !important;
-        margin: 0 0 30px 0 !important;
-        opacity: 0.9 !important;
-        max-width: 500px !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-        margin-bottom: 30px !important;
-        position: relative !important;
-        z-index: 2 !important;
+        font-size: 1.1rem;
+        color: #ccc;
+        margin: 0 0 35px 0;
     }
-
+    
     .home-cta a {
-        background: white !important;
-        color: #667eea !important;
-        padding: 15px 35px !important;
-        border-radius: 10px !important;
-        text-decoration: none !important;
-        font-weight: 700 !important;
-        font-size: 1.1rem !important;
-        display: inline-block !important;
-        transition: all 0.3s ease !important;
-        position: relative !important;
-        z-index: 2 !important;
-        border: 2px solid white !important;
+        display: inline-block;
+        background: #fff;
+        color: #000;
+        padding: 16px 40px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 15px;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+        border: 2px solid #fff;
     }
-
+    
     .home-cta a:hover {
-        background: transparent !important;
-        color: white !important;
-        text-decoration: none !important;
-        transform: translateY(-3px) !important;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+        background: transparent;
+        color: #fff;
+        transform: translateY(-3px);
     }
-
-    /* CALL TO ACTION */
-    .cta-section {
-        text-align: center !important;
-        padding: 60px 20px !important;
-        background: linear-gradient(135deg, #f8fafc, #e2e8f0) !important;
-        margin: 80px 0 40px 0 !important;
-        border-radius: 20px !important;
-        border: 1px solid #e2e8f0 !important;
-    }
-
-    .cta-section h2 {
-        font-size: 2.5rem !important;
-        font-weight: 700 !important;
-        color: #1e293b !important;
-        margin: 0 0 20px 0 !important;
-    }
-
-    .cta-section p {
-        font-size: 1.2rem !important;
-        color: #64748b !important;
-        margin: 0 0 30px 0 !important;
-        max-width: 600px !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-    }
-
-    .cta-button {
-        background: linear-gradient(135deg, #667eea, #764ba2) !important;
-        color: white !important;
-        padding: 15px 40px !important;
-        border-radius: 10px !important;
-        text-decoration: none !important;
-        font-weight: 700 !important;
-        font-size: 1.1rem !important;
-        display: inline-block !important;
-        transition: all 0.3s ease !important;
-        border: none !important;
-    }
-
-    .cta-button:hover {
-        color: white !important;
-        text-decoration: none !important;
-        transform: translateY(-3px) !important;
-        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3) !important;
-    }
-
-    /* RESPONSIVE DESIGN */
-    @media (max-width: 768px) {
-        .home-hero h1 {
-            font-size: 2.5rem !important;
+    
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+        .hero-container {
+            grid-template-columns: 1fr;
+            gap: 40px;
         }
-
-        .home-search {
-            flex-direction: column !important;
-            padding: 0 30px !important;
+        
+        .hero-image {
+            display: none;
         }
-
-        .home-search input,
-        .home-search select,
-        .home-search button {
-            width: 100% !important;
-            margin: 0 !important;
+        
+        .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
         }
-
-        .home-stats {
-            grid-template-columns: repeat(2, 1fr) !important;
-            gap: 20px !important;
+        
+        .stat-item {
+            border-right: none;
+            border-bottom: 1px solid #e5e5e5;
         }
-
+        
+        .stat-item:nth-child(odd) {
+            border-right: 1px solid #e5e5e5;
+        }
+        
         .category-grid {
-            grid-template-columns: 1fr !important;
-            padding: 0 10px !important;
+            grid-template-columns: repeat(2, 1fr);
         }
-
-        .section-title {
-            font-size: 2rem !important;
+        
+        .about-story-section,
+        .philosophy-section {
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+        
+        .rison-section {
+            grid-template-columns: 1fr;
+            padding: 60px 40px;
+        }
+        
+        .story-details {
+            grid-template-columns: 1fr;
+        }
+        
+        .feature-grid {
+            grid-template-columns: 1fr;
         }
     }
-
-    @media (max-width: 480px) {
-        .home-stats {
-            grid-template-columns: 1fr !important;
+    
+    @media (max-width: 768px) {
+        .hero-section {
+            padding: 60px 20px;
+            margin-top: 70px;
+        }
+        
+        .hero-title {
+            font-size: 3rem;
+        }
+        
+        .hero-form {
+            flex-direction: column;
+        }
+        
+        .form-group {
+            border-right: none;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .stat-item {
+            border-right: none;
+        }
+        
+        .stat-item:nth-child(odd) {
+            border-right: none;
+        }
+        
+        .category-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .about-section {
+            padding: 60px 20px;
+        }
+        
+        .about-story-section,
+        .philosophy-section {
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .about-story-section h3,
+        .philosophy-header h3,
+        .rison-content h3 {
+            font-size: 2rem;
+        }
+        
+        .rison-section {
+            padding: 50px 20px;
+            margin: 0 0 60px 0;
+        }
+        
+        .rison-logo {
+            width: 200px;
+            height: 200px;
+        }
+        
+        .rison-logo::before {
+            width: 230px;
+            height: 230px;
+        }
+        
+        .rison-logo-text {
+            font-size: 3rem;
+        }
+        
+        .value-item {
+            grid-template-columns: 50px 1fr;
+            gap: 20px;
+        }
+        
+        .value-icon-box {
+            width: 50px;
+            height: 50px;
+        }
+        
+        .quote-text {
+            font-size: 1.5rem;
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
         }
     }
 </style>
 {% endblock %}
 
 {% block content %}
-<section class="home-hero">
-    <div>
-        <h1>Turn Interviews Into Opportunities.</h1>
-        <p>Discover jobs matched to your skills and performance, powered by intelligent AI.
-Prepare with Rison AI and unlock opportunities based on your real potential.</p>
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-container">
+        <div class="hero-content">
+            <div class="hero-label">Established MMXXIV</div>
+            <h1 class="hero-title">The Art of <span class="italic">Progression.</span></h1>
+            <p class="hero-description">Redefining the architecture of modern recruitment through high-precision AI and curated career strategy for the discerning professional.</p>
+            <form class="hero-form" method="get" action="/jobs/">
+                <div class="form-group">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M21 21l-4.35-4.35"/>
+                        <circle cx="11" cy="11" r="8"/>
+                    </svg>
+                    <input type="text" name="q" placeholder="Role or Specialization" />
+                </div>
+                <div class="form-group">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+                        <circle cx="12" cy="9" r="2.5"/>
+                    </svg>
+                    <select name="location" title="Select location">
+                        <option value="">Global Centers</option>
+                        <option>Remote</option>
+                        <option>New York</option>
+                        <option>San Francisco</option>
+                        <option>India</option>
+                    </select>
+                </div>
+                <button type="submit">QUERY</button>
+            </form>
+        </div>
+        <div class="hero-image">
+            <div class="hero-image-circle"></div>
+        </div>
     </div>
-    <form class="home-search" method="get" action="/jobs/">
-        <input type="text" name="q" placeholder="Job title or keyword">
-        <select name="location">
-            <option value="">Any location</option>
-            <option>Remote</option>
-            <option>New York</option>
-            <option>San Francisco</option>
-            <option>India</option>
-        </select>
-        <button type="submit">Search Jobs</button>
-    </form>
 </section>
 
-<section class="home-stats">
-    <div class="stat-card">
-        <h3>12K+</h3>
-        <span>Open roles</span>
-    </div>
-    <div class="stat-card">
-        <h3>4K+</h3>
-        <span>Hiring companies</span>
-    </div>
-    <div class="stat-card">
-        <h3>92%</h3>
-        <span>Positive feedback</span>
-    </div>
-    <div class="stat-card">
-        <h3>24h</h3>
-        <span>Average response</span>
+<!-- Stats Section -->
+<section class="stats-section">
+    <div class="stats-grid">
+        <div class="stat-item">
+            <div class="stat-number">12k</div>
+            <div class="stat-label">Placement Capital</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">400+</div>
+            <div class="stat-label">Global Partners</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">94%</div>
+            <div class="stat-label">Success Quotient</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">24h</div>
+            <div class="stat-label">Concierge Cycle</div>
+        </div>
     </div>
 </section>
 
+<!-- About Section -->
+<section class="about-section">
+    <div class="about-container">
+        <!-- Our Story -->
+        <div class="about-story-section">
+            <div>
+                <h3>Our Story</h3>
+            </div>
+            <div class="story-content">
+                <p class="story-intro">CareerConnect was founded with a singular, uncompromising vision: to revolutionize the job search experience by harmonizing cutting-edge AI technology with sophisticated, human-centric design. We recognized that the pursuit of a career is not merely a transaction, but a pivotal life event.</p>
+                <div class="story-details">
+                    <p>We believe that finding the right career opportunity should be intelligent, efficient, and deeply personalized. In a world of noise, we provide clarity.</p>
+                    <p>Our platform stands as a bridge between talent and realized opportunity, ensuring that every professional interaction is meaningful and every match is precise.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Powered by Rison AI -->
+        <div class="rison-section">
+            <div class="rison-visual">
+                <div class="rison-logo">
+                    <div class="rison-logo-text">Rison</div>
+                </div>
+            </div>
+            <div class="rison-content">
+                <h3>Powered by Rison AI</h3>
+                <p>At the core of our platform lies Rison AI, our proprietary engine designed to deconstruct the complexities of the modern job market. Rison doesn't just match keywords; it understands context, potential, and trajectory.</p>
+                <div class="rison-features">
+                    <div class="rison-feature">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M3 3h8v8H3V3m10 0h8v8h-8V3M3 13h8v8H3v-8m15 0h3v3h-3v-3m0 5h3v3h-3v-3m-5-5h3v8h-3v-8z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4>Predictive Analytics</h4>
+                            <p>Forecasting career paths based on market trends and skill adjacency.</p>
+                        </div>
+                    </div>
+                    <div class="rison-feature">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M12 2a5 5 0 015 5c0 2.21-1.79 4-4 4s-4-1.79-4-4 1.79-4 4-4m0 9c2.67 0 8 1.34 8 4v3H4v-3c0-2.66 5.33-4 8-4z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4>Interview Simulation</h4>
+                            <p>Real-time feedback on delivery, tone, and content structure.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Our Philosophy -->
+        <div class="philosophy-section">
+            <div class="philosophy-header">
+                <h3>Our Philosophy</h3>
+                <p>We operate under a set of immutable principles that guide every algorithm we write and every interface we design.</p>
+            </div>
+            <div class="philosophy-values">
+                <div class="value-item">
+                    <div class="value-icon-box">
+                        <svg viewBox="0 0 24 24" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <circle cx="12" cy="12" r="6"/>
+                            <circle cx="12" cy="12" r="2"/>
+                        </svg>
+                    </div>
+                    <div class="value-content">
+                        <h4>Innovation</h4>
+                        <p>Pioneering AI-powered career solutions that push the boundaries of what is technically possible, transforming the abstract into the actionable.</p>
+                    </div>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon-box">
+                        <svg viewBox="0 0 24 24" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <div class="value-content">
+                        <h4>Trust</h4>
+                        <p>Building lasting relationships with integrity. We treat user data with the reverence of a vault, ensuring transparency in how our algorithms influence outcomes.</p>
+                    </div>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon-box">
+                        <svg viewBox="0 0 24 24" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                    </div>
+                    <div class="value-content">
+                        <h4>Excellence</h4>
+                        <p>Delivering exceptional value at every step. We reject mediocrity, striving for a polished, seamless experience that respects the ambition of our users.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quote Section -->
+        <div class="quote-section">
+            <div class="quote-icon">"</div>
+            <p class="quote-text">The future of work is not just about finding a job.<br>It is about architectural career design.</p>
+            <p class="quote-author">CAREERCONNECT AI</p>
+        </div>
+    </div>
+</section>
+
+<!-- Categories Section -->
 <h2 class="section-title">Popular Categories</h2>
 <section class="category-grid">
     <div class="category-card">
@@ -476,6 +971,7 @@ Prepare with Rison AI and unlock opportunities based on your real potential.</p>
     </div>
 </section>
 
+<!-- Features Section -->
 <h2 class="section-title">Why JobView</h2>
 <section class="feature-grid">
     <div class="feature-card">
@@ -491,15 +987,20 @@ Prepare with Rison AI and unlock opportunities based on your real potential.</p>
         <p>Analyze your performance with visual graphs. Identify your strong and weak subjects so you can focus on improvement and increase your chances of getting hired.</p>
     </div>
     <div class="feature-card">
-        <h4>Performance Based Job Recommendations</h4>
+        <h4>Performance Based Jobs</h4>
         <p>Rison AI recommends jobs based on your interview performance and skills. Apply to opportunities that truly match your strengths and improve your chances of getting hired.</p>
     </div>
     <div class="feature-card">
         <h4>Fast Apply</h4>
-        <p>Save time with a unified application flow across companies.</p>
+        <p>Save time with a unified application flow across companies. One profile, multiple applications.</p>
+    </div>
+    <div class="feature-card">
+        <h4>Career Guidance</h4>
+        <p>Get personalized career advice and recommendations to help you grow and advance in your professional journey.</p>
     </div>
 </section>
 
+<!-- CTA Section -->
 <section class="home-cta">
     <div>
         <h3>Ready to start your next role?</h3>
