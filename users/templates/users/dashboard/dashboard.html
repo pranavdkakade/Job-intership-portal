@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - JobView</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         * {
@@ -14,9 +18,9 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0a0a0a;
-            color: #ffffff;
+            font-family: 'Playfair Display', serif;
+            background-color: #f5f7fa;
+            color: #2c3e50;
             display: flex;
             min-height: 100vh;
         }
@@ -29,15 +33,22 @@
 
         .sidebar {
             width: 250px;
-            background: #1a1a1a;
-            color: white;
-            padding: 20px;
+            background: #ffffff;
+            color: #2c3e50;
+            padding: 20px 0 0 20px;
             display: flex;
             flex-direction: column;
             position: fixed;
             height: 100vh;
             overflow-y: auto;
-            border-right: 1px solid #333333;
+            border-right: 1px solid #e1e8ed;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.05);
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+
+        .sidebar::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
         }
 
         .sidebar-brand {
@@ -45,9 +56,10 @@
         }
 
         .sidebar-brand h3 {
-            font-size: 26px;
-            color: #fff;
-            font-weight: 600;
+            font-size: 20px;
+            color: #2c3e50;
+            font-weight: 700;
+            letter-spacing: 0.5px;
         }
 
         .sidebar-nav {
@@ -57,19 +69,21 @@
         .nav-item {
             display: flex;
             align-items: center;
-            padding: 10px 12px;
-            margin-bottom: 6px;
-            border-radius: 6px;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            border-radius: 8px;
             text-decoration: none;
-            color: #ecf0f1;
+            color: #1a1a1a;
             transition: all 0.3s ease;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 15px;
+            font-weight: 500;
+            font-family: 'Playfair Display', serif;
         }
 
         .nav-item:hover {
-            background-color: #2563eb;
-            color: #fff;
+            background-color: #f0f4f8;
+            color: #2563eb;
         }
 
         .nav-item.active {
@@ -78,34 +92,43 @@
         }
 
         .nav-item .icon {
-            margin-right: 10px;
-            font-size: 16px;
+            margin-right: 12px;
+            font-size: 18px;
+        }
+
+        .nav-item i {
+            margin-right: 12px;
+            font-size: 18px;
         }
 
         .sidebar-footer {
             margin-top: auto;
             padding-top: 20px;
-            border-top: 1px solid #333333;
+            padding-right: 0;
+            padding-bottom: 0;
+            padding-left: 0;
+            border-top: 1px solid #e1e8ed;
+            margin-left: -20px;
         }
 
         .logout-btn {
             display: flex;
             align-items: center;
             padding: 12px 15px;
-            background-color: #4a4a4a;
+            background-color: #000000;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 0;
             text-decoration: none;
             cursor: pointer;
             transition: all 0.3s ease;
-            width: 100%;
+            width: 250px;
             justify-content: center;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .logout-btn:hover {
-            background-color: #333333;
+            background-color: #1a1a1a;
             text-decoration: none;
             color: white;
         }
@@ -115,41 +138,41 @@
             flex: 1;
             padding: 40px;
             overflow-y: auto;
-            background-color: #0a0a0a;
+            background-color: #f5f7fa;
         }
 
         .hero-section {
-            margin-bottom: 40px;
-            padding: 30px 0;
+            margin-bottom: 30px;
+            padding: 20px 0;
         }
 
         .hero-title {
-            font-size: 36px;
+            font-size: 32px;
             font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 10px;
+            color: #2c3e50;
+            margin-bottom: 8px;
             letter-spacing: -0.5px;
         }
 
         .hero-subtitle {
-            font-size: 16px;
-            color: #888888;
+            font-size: 15px;
+            color: #6c7a89;
             margin-bottom: 0;
             line-height: 1.5;
         }
 
         .hero-subtitle .username {
-            color: #6366f1;
-            font-weight: 600;
+            color: #2563eb;
+            font-weight: 700;
         }
 
         .dashboard-section {
-            background: #1a1a1a;
+            background: #ffffff;
             border-radius: 12px;
             padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            border: 1px solid #333333;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e1e8ed;
         }
 
         .section-header {
@@ -160,22 +183,26 @@
         }
 
         .section-header h2 {
-            color: #ffffff;
+            color: #2c3e50;
             margin-bottom: 0;
-            font-size: 24px;
+            font-size: 20px;
+            font-weight: 700;
         }
 
         .edit-btn {
-            color: #2563eb;
+            color: #2c3e50;
             text-decoration: none;
-            font-weight: 500;
-            padding: 8px 12px;
+            font-weight: 600;
+            padding: 8px 16px;
             border-radius: 6px;
             transition: all 0.3s ease;
+            border: 1px solid #e1e8ed;
+            font-size: 14px;
         }
 
         .edit-btn:hover {
-            background-color: #333333;
+            background-color: #000000;
+            color: white;
             text-decoration: none;
         }
 
@@ -186,10 +213,10 @@
         }
 
         .profile-avatar img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            border: 2px solid #333333;
+            width: 120px;
+            height: 120px;
+            border-radius: 0;
+            border: 2px solid #e1e8ed;
         }
 
         .student-info {
@@ -203,42 +230,54 @@
         .info-item label {
             display: block;
             font-weight: 600;
-            color: #a0a0a0;
+            color: #6c7a89;
             margin-bottom: 5px;
-            font-size: 14px;
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .info-item p {
-            color: #ffffff;
-            font-size: 16px;
+            color: #2c3e50;
+            font-size: 18px;
             margin: 0;
+            font-weight: 600;
         }
 
         .section-description {
-            color: #a0a0a0;
+            color: #6c7a89;
             margin-bottom: 25px;
-            font-size: 16px;
+            font-size: 14px;
             line-height: 1.5;
         }
 
         .graphs-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 30px;
+            gap: 25px;
         }
 
         .graph-card {
-            background: #2a2a2a;
-            padding: 25px;
+            background: #ffffff;
+            padding: 30px;
             border-radius: 12px;
-            border: 1px solid #444444;
+            border: 1px solid #e1e8ed;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
 
         .graph-card h3 {
-            color: #ffffff;
-            margin-bottom: 20px;
+            color: #2c3e50;
+            margin-bottom: 8px;
             font-size: 18px;
-            text-align: center;
+            font-weight: 700;
+        }
+
+        .graph-subtitle {
+            color: #6c7a89;
+            font-size: 13px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         @media (max-width: 768px) {
@@ -264,6 +303,24 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* RISON Button Animation */
+        @keyframes pulseBox {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7),
+                           0 0 0 0 rgba(37, 99, 235, 0.5),
+                           0 4px 16px rgba(37, 99, 235, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 0 8px rgba(37, 99, 235, 0.4),
+                           0 0 0 16px rgba(37, 99, 235, 0.2),
+                           0 4px 24px rgba(37, 99, 235, 0.5);
+            }
+        }
+
+        .rison-btn-animated {
+            animation: pulseBox 2s ease-in-out infinite;
+        }
     </style>
 </head>
 <body>
@@ -271,36 +328,23 @@
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
             <div class="sidebar-brand">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <span style="display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: linear-gradient(135deg, #2563eb 0%, #1de7f2 100%); border-radius: 8px;">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="3" y="7" width="18" height="11" rx="3" fill="#fff"/>
-                            <rect x="7" y="3" width="10" height="4" rx="2" fill="#fff"/>
-                            <rect x="3" y="7" width="18" height="11" rx="3" stroke="#2563eb" stroke-width="1.5"/>
-                            <rect x="7" y="3" width="10" height="4" rx="2" stroke="#2563eb" stroke-width="1.5"/>
-                        </svg>
-                    </span>
-                    <span style="font-family: 'Inter', 'Segoe UI', 'Georgia', 'Times New Roman', serif; font-size: 19px; font-weight: 800; letter-spacing: 0.01em; color: #fff;">
-                        <span style="color: #fff; font-weight: 800;">CareerConnect</span>
-                        <span style="color: #2563eb; font-weight: 800;">AI</span>
-                    </span>
-                </div>
+                <h3 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 18px; font-weight: 700; letter-spacing: 0.025em; color: #2c3e50;"><i class="fas fa-briefcase"></i> CAREERCONNECT AI</h3>
             </div>
             <nav class="sidebar-nav">
-                            <a href="{% url 'users:user_dashboard' %}" class="nav-item active" style="font-family: 'Georgia', 'Times New Roman', serif; font-size: 15px;font-weight: 600;">
-                                <span class="icon"></span> Dashboard
+                            <a href="{% url 'users:user_dashboard' %}" class="nav-item active" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                                <i class="fas fa-chart-line"></i> Dashboard
                                 </a>
-                                <a href="{% url 'application:applied_companies' %}" class="nav-item" style="font-family: 'Georgia', 'Times New Roman', serif; font-size: 15px; font-weight: 600;">
-                                    <span class="icon"></span> Applied Companies
+                                <a href="{% url 'application:applied_companies' %}" class="nav-item" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                                    <i class="fas fa-building"></i> Applied Companies
                                 </a>
-                                <a href="{% url 'application:apply_companies' %}" class="nav-item" style="font-family: 'Georgia', 'Times New Roman', serif; font-size: 15px; font-weight: 600;">
-                                    <span class="icon"></span> Apply to Companies
+                                <a href="{% url 'application:apply_companies' %}" class="nav-item" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                                    <i class="fas fa-paper-plane"></i> Apply to Companies
                                 </a>
-                                <a href="{% url 'interviews:start_interview' %}" class="nav-item" style="font-family: 'Georgia', 'Times New Roman', serif; font-size: 15px; font-weight: 600;">
-                                    <span class="icon"></span> Interview AI
+                                <a href="{% url 'interviews:start_interview' %}" class="nav-item" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                                    <i class="fas fa-robot"></i> Interview AI
                                 </a>
-                                <a href="{% url 'interviews:interview_history' %}" class="nav-item" style="font-family: 'Georgia', 'Times New Roman', serif; font-size: 15px; font-weight: 600;">
-                                    <span class="icon"></span> History of AI
+                                <a href="{% url 'interviews:interview_history' %}" class="nav-item" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                                    <i class="fas fa-history"></i> History of AI
                                 </a>
                         </nav>
             <div class="sidebar-footer">
@@ -316,62 +360,34 @@
         <!-- Main Content -->
         <main class="main-content">
             <!-- Hero Section -->
-            <div class="hero-section">
-                <div style="display: flex; align-items: center; justify-content: space-between;">
-                    <div>
-                        <h1 style="font-family: 'Inter', 'Roboto', Arial, sans-serif; font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 0.3em; letter-spacing: -0.5px;">User Dashboard</h1>
-                        <p style="font-family: 'Inter', 'Roboto', Arial, sans-serif; font-size: 1.08rem; color: #5e6a7a; font-weight: 500; margin: 0; letter-spacing: 0.01em;">
-                            Welcome back, <span style="color: #2563eb; font-weight: 700; font-family: inherit;">{{ user.first_name|default:user.username }}</span>. Here's your career progress.
-                        </p>
-                    </div>
-                    <button id="subscribe-btn" style="margin-left: 24px; padding: 10px 28px; font-size: 1rem; font-family: 'Inter', 'Roboto', Arial, sans-serif; font-weight: 700; border-radius: 8px; background: linear-gradient(90deg, #2563eb 0%, #7c3aed 100%); color: #fff; border: none; box-shadow: 0 2px 8px rgba(44,62,80,0.10); cursor: pointer; transition: background 0.2s, color 0.2s;">
-                        Subscribe
-                    </button>
+            <div class="hero-section" style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                    <h1 class="hero-title">User Dashboard</h1>
+                    <p class="hero-subtitle">Welcome back, <span class="username">{{ user.first_name|default:user.username }}</span>. Here is your career progress.</p>
                 </div>
-                <script>
-                    // Subscribe button toggle UI
-                    const subscribeBtn = document.getElementById('subscribe-btn');
-                    if (subscribeBtn) {
-                        subscribeBtn.addEventListener('click', function() {
-                            if (subscribeBtn.textContent.trim() === 'Subscribe') {
-                                subscribeBtn.textContent = 'Subscribed';
-                                subscribeBtn.style.background = 'linear-gradient(90deg, #22c55e 0%, #2563eb 100%)';
-                            } else {
-                                subscribeBtn.textContent = 'Subscribe';
-                                subscribeBtn.style.background = 'linear-gradient(90deg, #2563eb 0%, #7c3aed 100%)';
-                            }
-                        });
-                    }
-                </script>
             </div>
 
             <!-- Student Detail Section -->
-            <section class="dashboard-section">
-                <div class="account-card" style="display: flex; align-items: center; background: #181a20; border-radius: 20px; padding: 32px 36px; box-shadow: 0 4px 24px rgba(0,0,0,0.25); position: relative; gap: 32px;">
-                    <a href="#" class="edit-btn" style="position: absolute; top: 0; right: 0; background: #23262f; color: #fff; border-radius: 8px; padding: 2px; font-weight: 600; font-size: 15px; border: none; box-shadow: 0 2px 8px rgba(0,0,0,0.10); transition: background 0.2s; text-decoration: none;">Edit Profile</a>
-                    <div class="profile-avatar" style="position: relative;">
-                        <img src="{% static 'images/first.jpg' %}" alt="Profile" style="width: 100px; height: 100px; border-radius: 16px; background: #f3d6c6; border: none; box-shadow: 0 2px 8px rgba(0,0,0,0.10);">
-                        <span style="position: absolute; bottom: 10px; right: 10px; width: 16px; height: 16px; background: #1de782; border-radius: 50%; border: 2px solid #181a20;"></span>
+            <section class="dashboard-section" style="position: relative; padding-top: 50px;">
+                <a href="#" class="edit-btn" style="position: absolute; top: 15px; right: 15px;">EDIT PROFILE</a>
+                <div class="student-detail">
+                    <div class="profile-avatar">
+                        <img src="{% static 'images/first.jpg' %}" alt="Profile">
                     </div>
-                    <div style="flex: 1; display: flex; flex-direction: column; gap: 8px;">
-                        <span style="color: #6c7a89; font-size: 13px; letter-spacing: 1.5px; font-weight: 600; margin-bottom: 2px;">ACCOUNT OVERVIEW</span>
-                        <div style="display: flex; gap: 40px; align-items: flex-end; flex-wrap: wrap;">
-                            <div style="min-width: 180px;">
-                                <div style="color: #a0a0a0; font-size: 13px; font-weight: 500;">FULL NAME</div>
-                                <div style="color: #fff; font-size: 22px; font-weight: 700; line-height: 1.2;">{{ user.first_name|default:user.username }}</div>
-                            </div>
-                            <div style="min-width: 220px;">
-                                <div style="color: #a0a0a0; font-size: 13px; font-weight: 500;">EMAIL ADDRESS</div>
-                                <div style="color: #fff; font-size: 20px; font-weight: 700; line-height: 1.2; word-break: break-all;">{{ user.email }}</div>
-                            </div>
-                            <div style="margin-left: auto; text-align: right; min-width: 120px;">
-                                <div style="color: #a0a0a0; font-size: 13px; font-weight: 500;">OVERALL RANKING</div>
-                                <div style="color: #1de7f2; font-size: 22px; font-weight: 700;">Top 2%</div>
-                            </div>
-                            <div style="margin-left: 24px; text-align: right; min-width: 120px;">
-                                <div style="color: #a0a0a0; font-size: 13px; font-weight: 500;">YOUR RANK</div>
-                                <div style="color: #22c55e; font-size: 22px; font-weight: 700;">#12</div>
-                            </div>
+                    <div class="student-info">
+                        <div class="info-item">
+                            <label>FULL NAME</label>
+                            <p>{{ user.first_name|default:user.username }} {{ user.last_name|default:"" }}</p>
+                        </div>
+                        <div class="info-item">
+                            <label>EMAIL ADDRESS</label>
+                            <p>{{ user.email }}</p>
+                        </div>
+                    </div>
+                    <div style="margin-left: auto; text-align: right;">
+                        <div class="info-item">
+                            <label>OVERALL RANKING</label>
+                            <p style="color: #2563eb;">Top 2%</p>
                         </div>
                     </div>
                 </div>
@@ -379,37 +395,19 @@
 
             <!-- Graphs Section -->
             <section class="dashboard-section">
-                <div class="graphs-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 32px;">
+                <div class="graphs-container">
                     <!-- Technical Scores Card -->
-                    <div class="graph-card" style="background: #23262f; border-radius: 22px; box-shadow: 0 4px 24px rgba(0,0,0,0.18); padding: 32px 28px; border: none;">
-                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-                            <div>
-                                <div style="font-family: 'Inter', 'Roboto', Arial, sans-serif; font-size: 1.35rem; font-weight: 800; color: #fff;">Technical Scores</div>
-                                <div style="font-size: 1rem; color: #7c8ba0; font-weight: 500; margin-top: 2px;">Performance across core domains</div>
-                            </div>
-                            <div style="background: #2e3a5c; border-radius: 12px; padding: 8px 10px;">
-                                <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="4" width="4" height="16" rx="2" fill="#7ee6ff"/><rect x="10" y="8" width="4" height="12" rx="2" fill="#a5b4fc"/><rect x="16" y="12" width="4" height="8" rx="2" fill="#7ee6ff"/></svg>
-                            </div>
-                        </div>
-                        <div style="margin-top: 18px;">
-                            <canvas id="subjectScoresChart"></canvas>
-                        </div>
+                    <div class="graph-card">
+                        <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 0.25rem; color: #000000;">Performance Metrics</h3>
+                        <p class="graph-subtitle">TECHNICAL PROFICIENCY ACROSS CORE DOMAINS</p>
+                        <canvas id="subjectScoresChart"></canvas>
                     </div>
 
                     <!-- Skill Radar Card -->
-                    <div class="graph-card" style="background: #23262f; border-radius: 22px; box-shadow: 0 4px 24px rgba(0,0,0,0.18); padding: 32px 28px; border: none;">
-                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-                            <div>
-                                <div style="font-family: 'Inter', 'Roboto', Arial, sans-serif; font-size: 1.35rem; font-weight: 800; color: #fff;">Skill Radar</div>
-                                <div style="font-size: 1rem; color: #7c8ba0; font-weight: 500; margin-top: 2px;">Soft skills and adaptability metrics</div>
-                            </div>
-                            <div style="background: #2e3a5c; border-radius: 12px; padding: 8px 10px;">
-                                <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2v20M2 12h20" stroke="#7ee6ff" stroke-width="2"/><circle cx="12" cy="12" r="8" stroke="#a5b4fc" stroke-width="2"/></svg>
-                            </div>
-                        </div>
-                        <div style="margin-top: 18px;">
-                            <canvas id="skillRadarChart"></canvas>
-                        </div>
+                    <div class="graph-card">
+                        <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 0.25rem; color: #000000;">Soft Skill Radar</h3>
+                        <p class="graph-subtitle">ADAPTABILITY & LEADERSHIP ASSESSMENT</p>
+                        <canvas id="skillRadarChart"></canvas>
                     </div>
                 </div>
             </section>
@@ -417,48 +415,25 @@
     </div>
 
     <!-- Floating AI Button -->
-    <div id="floating-ai-container" style="position: fixed; bottom: 36px; right: 36px; z-index: 1000; display: flex; flex-direction: column; align-items: flex-end;">
-        <!-- Speech Bubble -->
-        <div id="ai-bubble" style="background: rgba(36,41,68,0.98); color: #fff; padding: 12px 22px; border-radius: 16px; font-size: 17px; font-weight: 600; margin-bottom: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.18); position: relative; display: none; border: 1.5px solid #2563eb;">
-            Ready to Practice?
-            <span id="close-bubble" style="position: absolute; top: 7px; right: 10px; cursor: pointer; font-size: 16px; color: #aaa;">&times;</span>
-        </div>
-        <button id="rison-ai-btn" style="width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%); border: 2.5px solid #23262f; box-shadow: 0 4px 18px rgba(37,99,235,0.18); display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: box-shadow 0.2s, background 0.2s; position: relative;">
-            <span style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; color: #e0e7ff; font-size: 22px; font-weight: 800; letter-spacing: 1.2px; text-shadow: 0 2px 8px rgba(44,62,80,0.18);">
-                <span style="line-height: 1.1; font-size: 22px;">RISON</span>
-                <span style="line-height: 1.1; color: #a5b4fc; font-size: 14px; font-weight: 700; letter-spacing: 2px;">AI</span>
-            </span>
+    <div id="floating-ai-container" style="position: fixed; bottom: 30px; right: 30px; z-index: 1000;">
+        <button id="rison-ai-btn" class="rison-btn-animated" style="width: 90px; height: 90px; border-radius: 0; background: #2563eb; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.3s ease; position: relative; font-size: 20px; font-weight: 700; color: white; letter-spacing: 1.5px; font-family: 'Courier New', monospace;">
+            RISON
         </button>
     </div>
 
     <script>
         // Floating AI Button Logic
         const aiBtn = document.getElementById('rison-ai-btn');
-        const aiBubble = document.getElementById('ai-bubble');
-        const closeBubble = document.getElementById('close-bubble');
 
-        // Show bubble on page load for a few seconds
-        window.addEventListener('DOMContentLoaded', () => {
-            aiBubble.style.display = 'block';
-            setTimeout(() => {
-                aiBubble.style.display = 'none';
-            }, 4000);
-        });
-
-        // Close bubble on X click
-        closeBubble.addEventListener('click', () => {
-            aiBubble.style.display = 'none';
-        });
-
-        // Show bubble on hover
+        // Hover effect
         aiBtn.addEventListener('mouseenter', () => {
-            aiBubble.style.display = 'block';
+            aiBtn.style.transform = 'scale(1.05)';
         });
         aiBtn.addEventListener('mouseleave', () => {
-            aiBubble.style.display = 'none';
+            aiBtn.style.transform = 'scale(1)';
         });
 
-        // Redirect to interview.html on click
+        // Redirect to interview on click
         aiBtn.addEventListener('click', () => {
             window.location.href = '{% url "interviews:start_interview" %}';
         });
@@ -471,17 +446,19 @@
         const subjectChart = new Chart(subjectCtx, {
             type: 'bar',
             data: {
-                labels: ['DSA', 'Frontend', 'Backend', 'ML/AI'],
+                labels: ['JavaScript', 'Mentoring', 'Algorithmic', 'UI/UX', 'Database'],
                 datasets: [{
                     label: 'Score',
-                    data: [75, 65, 85, 70],
+                    data: [75, 82, 88, 70, 65],
                     backgroundColor: '#2563eb',
-                    borderRadius: 4,
-                    borderSkipped: false
+                    borderRadius: 6,
+                    borderSkipped: false,
+                    barThickness: 40
                 }]
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: true,
                 plugins: {
                     legend: { 
                         display: false 
@@ -493,18 +470,26 @@
                         max: 100,
                         ticks: { 
                             stepSize: 25,
-                            color: '#a0a0a0'
+                            color: '#6c7a89',
+                            font: {
+                                size: 12
+                            }
                         },
                         grid: {
-                            color: '#444444'
+                            color: '#e1e8ed',
+                            drawBorder: false
                         }
                     },
                     x: {
                         ticks: {
-                            color: '#a0a0a0'
+                            color: '#6c7a89',
+                            font: {
+                                size: 12,
+                                weight: '500'
+                            }
                         },
                         grid: {
-                            color: '#444444'
+                            display: false
                         }
                     }
                 }
@@ -516,26 +501,26 @@
         const radarChart = new Chart(radarCtx, {
             type: 'radar',
             data: {
-                labels: ['Communication', 'Technical', 'Problem Solving', 'Leadership', 'Teamwork', 'Creativity'],
+                labels: ['Communication', 'Adaptability', 'Teamwork', 'Problem Solving', 'Leadership'],
                 datasets: [{
                     label: 'Your Skills',
-                    data: [75, 80, 85, 70, 75, 70],
+                    data: [75, 80, 85, 88, 70],
                     borderColor: '#2563eb',
-                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                    backgroundColor: 'rgba(37, 99, 235, 0.15)',
                     borderWidth: 2,
                     fill: true,
                     pointBackgroundColor: '#2563eb',
-                    pointBorderColor: '#ffffff'
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 2,
+                    pointRadius: 4
                 }]
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: true,
                 plugins: {
                     legend: { 
-                        position: 'bottom',
-                        labels: {
-                            color: '#a0a0a0'
-                        }
+                        display: false
                     }
                 },
                 scales: {
@@ -544,17 +529,24 @@
                         max: 100,
                         ticks: { 
                             stepSize: 20,
-                            color: '#a0a0a0',
-                            backdropColor: 'transparent'
+                            color: '#6c7a89',
+                            backdropColor: 'transparent',
+                            font: {
+                                size: 11
+                            }
                         },
                         grid: {
-                            color: '#444444'
+                            color: '#e1e8ed'
                         },
                         angleLines: {
-                            color: '#444444'
+                            color: '#e1e8ed'
                         },
                         pointLabels: {
-                            color: '#a0a0a0'
+                            color: '#6c7a89',
+                            font: {
+                                size: 12,
+                                weight: '500'
+                            }
                         }
                     }
                 }

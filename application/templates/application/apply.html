@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apply to Companies - JobView</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -13,9 +17,9 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0a0a0a;
-            color: #ffffff;
+            font-family: 'Playfair Display', serif;
+            background-color: #f5f7fa;
+            color: #2c3e50;
             display: flex;
             min-height: 100vh;
         }
@@ -28,15 +32,22 @@
 
         .sidebar {
             width: 250px;
-            background: #1a1a1a;
-            color: white;
-            padding: 20px;
+            background: #ffffff;
+            color: #2c3e50;
+            padding: 20px 0 0 20px;
             display: flex;
             flex-direction: column;
             position: fixed;
             height: 100vh;
             overflow-y: auto;
-            border-right: 1px solid #333333;
+            border-right: 1px solid #e1e8ed;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.05);
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            display: none;
         }
 
         .sidebar-brand {
@@ -44,9 +55,10 @@
         }
 
         .sidebar-brand h3 {
-            font-size: 26px;
-            color: #fff;
-            font-weight: 600;
+            font-size: 20px;
+            color: #2c3e50;
+            font-weight: 700;
+            letter-spacing: 0.5px;
         }
 
         .sidebar-nav {
@@ -56,19 +68,21 @@
         .nav-item {
             display: flex;
             align-items: center;
-            padding: 10px 12px;
-            margin-bottom: 6px;
-            border-radius: 6px;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            border-radius: 8px;
             text-decoration: none;
-            color: #ecf0f1;
+            color: #1a1a1a;
             transition: all 0.3s ease;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 15px;
+            font-weight: 500;
+            font-family: 'Playfair Display', serif;
         }
 
         .nav-item:hover {
-            background-color: #2563eb;
-            color: #fff;
+            background-color: #f0f4f8;
+            color: #2563eb;
         }
 
         .nav-item.active {
@@ -77,34 +91,43 @@
         }
 
         .nav-item .icon {
-            margin-right: 10px;
-            font-size: 16px;
+            margin-right: 12px;
+            font-size: 18px;
+        }
+
+        .nav-item i {
+            margin-right: 12px;
+            font-size: 18px;
         }
 
         .sidebar-footer {
             margin-top: auto;
             padding-top: 20px;
-            border-top: 1px solid #333333;
+            padding-right: 0;
+            padding-bottom: 0;
+            padding-left: 0;
+            border-top: 1px solid #e1e8ed;
+            margin-left: -20px;
         }
 
         .logout-btn {
             display: flex;
             align-items: center;
             padding: 12px 15px;
-            background-color: #4a4a4a;
+            background-color: #000000;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 0;
             text-decoration: none;
             cursor: pointer;
             transition: all 0.3s ease;
-            width: 100%;
+            width: 250px;
             justify-content: center;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .logout-btn:hover {
-            background-color: #333333;
+            background-color: #1a1a1a;
             text-decoration: none;
             color: white;
         }
@@ -114,7 +137,7 @@
             flex: 1;
             padding: 40px;
             overflow-y: auto;
-            background-color: #0a0a0a;
+            background-color: #f5f7fa;
         }
 
         .hero-section {
@@ -132,90 +155,91 @@
         .hero-title {
             font-size: 36px;
             font-weight: 700;
-            color: #ffffff;
+            color: #2c3e50;
             margin-bottom: 10px;
             letter-spacing: -0.5px;
         }
 
         .hero-subtitle {
             font-size: 16px;
-            color: #888888;
+            color: #5a5a5a;
             margin-bottom: 0;
             line-height: 1.5;
         }
 
         .stats-container {
             display: flex;
-            gap: 20px;
+            gap: 60px;
             align-items: center;
         }
 
         .stat-card {
-            background: #1a1a1a;
-            border: 1px solid #333333;
-            border-radius: 12px;
-            padding: 20px 25px;
             text-align: center;
-            min-width: 120px;
-            transition: all 0.3s ease;
+            padding: 0;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            min-width: auto;
         }
 
         .stat-card:hover {
-            transform: translateY(-2px);
-            border-color: #6366f1;
+            transform: none;
+            border-color: transparent;
         }
 
         .stat-number {
-            font-size: 24px;
-            font-weight: 700;
-            color: #6366f1;
+            font-size: 42px;
+            font-weight: 400;
+            color: #000000;
             line-height: 1;
             margin-bottom: 5px;
+            font-family: 'Playfair Display', serif;
         }
 
         .stat-label {
-            font-size: 12px;
-            color: #888888;
-            font-weight: 600;
+            font-size: 11px;
+            color: #000000;
+            font-weight: 500;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
 
         .stat-card.remote .stat-number {
-            color: #10b981;
+            color: #000000;
         }
 
         .stat-card.companies .stat-number {
-            color: #f59e0b;
+            color: #000000;
         }
 
         .placeholder-content {
-            background: #1a1a1a;
+            background: #ffffff;
             border-radius: 12px;
             padding: 30px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            border: 1px solid #333333;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e1e8ed;
         }
 
         .placeholder-content h2 {
-            color: #ffffff;
+            color: #2c3e50;
             margin-bottom: 15px;
             font-size: 24px;
         }
 
         .placeholder-content p {
-            color: #a0a0a0;
+            color: #5a5a5a;
             line-height: 1.6;
             font-size: 16px;
         }
 
         /* Job Listing Styles */
         .search-section {
-            background: #1a1a1a;
+            background: #ffffff;
             border-radius: 12px;
             padding: 25px;
             margin-bottom: 30px;
-            border: 1px solid #333333;
+            border: 1px solid #e1e8ed;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
         .search-bar {
@@ -225,44 +249,77 @@
             flex-wrap: wrap;
         }
 
-        .search-input {
+        .search-input-wrapper {
             flex: 1;
             min-width: 300px;
-            padding: 12px 15px;
-            background: #2a2a2a;
-            border: 1px solid #444444;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input-wrapper i {
+            position: absolute;
+            left: 15px;
+            color: #6b7280;
+            font-size: 16px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            background: #ffffff;
+            border: 1px solid #d1d5db;
             border-radius: 8px;
-            color: #ffffff;
+            color: #2c3e50;
             font-size: 14px;
         }
 
         .search-input::placeholder {
-            color: #888888;
+            color: #9ca3af;
+        }
+
+        .filter-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .filter-wrapper i {
+            position: absolute;
+            left: 15px;
+            color: #6b7280;
+            font-size: 16px;
+            pointer-events: none;
         }
 
         .filter-select {
-            padding: 12px 15px;
-            background: #2a2a2a;
-            border: 1px solid #444444;
+            padding: 12px 15px 12px 45px;
+            background: #ffffff;
+            border: 1px solid #d1d5db;
             border-radius: 8px;
-            color: #ffffff;
+            color: #2c3e50;
             font-size: 14px;
-            min-width: 150px;
+            min-width: 180px;
+            cursor: pointer;
         }
 
         .search-btn {
-            padding: 12px 25px;
-            background: #6366f1;
+            padding: 12px 30px;
+            background: #000000;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 0;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .search-btn:hover {
-            background: #4f46e5;
+            background: #ffffff;
+            color: #000000;
+            border: 1px solid #000000;
         }
 
         .content-layout {
@@ -278,11 +335,12 @@
         }
 
         .job-card {
-            background: #1a1a1a;
+            background: #ffffff;
             border-radius: 12px;
             padding: 25px;
-            border: 1px solid #333333;
+            border: 1px solid #e1e8ed;
             transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
         .job-card:hover {
@@ -315,13 +373,13 @@
         }
 
         .job-info h3 {
-            color: #ffffff;
+            color: #2c3e50;
             font-size: 18px;
             margin-bottom: 5px;
         }
 
         .company-location {
-            color: #888888;
+            color: #6b7280;
             font-size: 14px;
             margin-bottom: 10px;
         }
@@ -333,7 +391,7 @@
         }
 
         .job-description {
-            color: #cccccc;
+            color: #4b5563;
             line-height: 1.5;
             margin: 15px 0;
             font-size: 14px;
@@ -363,7 +421,7 @@
         }
 
         .posted-time {
-            color: #888888;
+            color: #6b7280;
             font-size: 12px;
         }
 
@@ -412,14 +470,15 @@
         }
 
         .sidebar-card {
-            background: #1a1a1a;
+            background: #ffffff;
             border-radius: 12px;
             padding: 20px;
-            border: 1px solid #333333;
+            border: 1px solid #e1e8ed;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
         .sidebar-card h3 {
-            color: #ffffff;
+            color: #2c3e50;
             margin-bottom: 15px;
             font-size: 16px;
         }
@@ -453,13 +512,13 @@
         }
 
         .company-details .name {
-            color: #ffffff;
+            color: #2c3e50;
             font-size: 14px;
             font-weight: 500;
         }
 
         .company-details .jobs {
-            color: #888888;
+            color: #6b7280;
             font-size: 12px;
         }
 
@@ -492,43 +551,62 @@
         }
 
         .job-alerts {
-            background: #1a1a1a;
+            background: #ffffff;
             border-radius: 12px;
-            padding: 20px;
-            border: 1px solid #333333;
+            padding: 30px 25px;
+            border: 1px solid #e1e8ed;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
         .job-alerts h3 {
-            color: #ffffff;
-            margin-bottom: 10px;
-            font-size: 16px;
+            color: #000000;
+            margin-bottom: 15px;
+            font-size: 24px;
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
         }
 
         .job-alerts p {
-            color: #888888;
+            color: #6b7280;
             font-size: 14px;
-            margin-bottom: 15px;
+            line-height: 1.5;
+            margin-bottom: 20px;
         }
 
         .email-input {
             width: 100%;
-            padding: 10px;
-            background: #2a2a2a;
-            border: 1px solid #444444;
+            padding: 12px 15px;
+            background: #ffffff;
+            border: 1px solid #d1d5db;
             border-radius: 6px;
-            color: #ffffff;
-            margin-bottom: 10px;
+            color: #2c3e50;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .email-input::placeholder {
+            color: #9ca3af;
         }
 
         .subscribe-btn {
             width: 100%;
-            background: #ffffff;
-            color: #000000;
-            padding: 10px;
+            background: #000000;
+            color: #ffffff;
+            padding: 14px;
             border: none;
-            border-radius: 6px;
+            border-radius: 0;
             font-weight: 600;
             cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+
+        .subscribe-btn:hover {
+            background: #ffffff;
+            color: #000000;
+            border: 1px solid #000000;
         }
 
         .load-more {
@@ -538,8 +616,8 @@
 
         .load-more-btn {
             background: transparent;
-            color: #888888;
-            border: 1px solid #444444;
+            color: #6b7280;
+            border: 1px solid #d1d5db;
             padding: 12px 30px;
             border-radius: 8px;
             cursor: pointer;
@@ -560,12 +638,17 @@
             }
 
             .hero-title {
-                font-size: 28px;
+                font-size: 32px;
+            }
+
+            .hero-title-italic {
+                font-size: 32px;
             }
 
             .stats-container {
                 flex-wrap: wrap;
                 justify-content: center;
+                gap: 40px;
             }
 
             .content-layout {
@@ -576,7 +659,13 @@
                 flex-direction: column;
             }
             
-            .search-input, .filter-select {
+            .search-input-wrapper,
+            .filter-wrapper {
+                width: 100%;
+            }
+            
+            .search-input, 
+            .filter-select {
                 width: 100%;
                 min-width: auto;
             }
@@ -608,36 +697,23 @@
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
             <div class="sidebar-brand">
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <span style="display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: linear-gradient(135deg, #2563eb 0%, #1de7f2 100%); border-radius: 8px;">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="3" y="7" width="18" height="11" rx="3" fill="#fff"/>
-                                <rect x="7" y="3" width="10" height="4" rx="2" fill="#fff"/>
-                                <rect x="3" y="7" width="18" height="11" rx="3" stroke="#2563eb" stroke-width="1.5"/>
-                                <rect x="7" y="3" width="10" height="4" rx="2" stroke="#2563eb" stroke-width="1.5"/>
-                            </svg>
-                        </span>
-                        <span style="font-family: 'Inter', 'Segoe UI', 'Georgia', 'Times New Roman', serif; font-size: 19px; font-weight: 800; letter-spacing: 0.01em; color: #fff;">
-                            <span style="color: #fff; font-weight: 800;">CareerConnect</span>
-                            <span style="color: #2563eb; font-weight: 800;">AI</span>
-                        </span>
-                    </div>
+                <h3 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 18px; font-weight: 700; letter-spacing: 0.025em; color: #2c3e50;"><i class="fas fa-briefcase"></i> CAREERCONNECT AI</h3>
             </div>
             <nav class="sidebar-nav">
-                <a href="{% url 'users:user_dashboard' %}" class="nav-item">
-                    <span class="icon"></span> Dashboard
+                <a href="{% url 'users:user_dashboard' %}" class="nav-item" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                    <i class="fas fa-chart-line"></i> Dashboard
                 </a>
-                <a href="{% url 'application:applied_companies' %}" class="nav-item">
-                    <span class="icon"></span> Applied Companies
+                <a href="{% url 'application:applied_companies' %}" class="nav-item" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                    <i class="fas fa-building"></i> Applied Companies
                 </a>
-                <a href="{% url 'application:apply_companies' %}" class="nav-item active">
-                    <span class="icon"></span> Apply to Companies
+                <a href="{% url 'application:apply_companies' %}" class="nav-item active" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                    <i class="fas fa-paper-plane"></i> Apply to Companies
                 </a>
-                <a href="{% url 'interviews:start_interview' %}" class="nav-item">
-                    <span class="icon"></span> Interview AI
+                <a href="{% url 'interviews:start_interview' %}" class="nav-item" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                    <i class="fas fa-robot"></i> Interview AI
                 </a>
-                <a href="{% url 'interviews:interview_history' %}" class="nav-item">
-                    <span class="icon"></span> History of AI
+                <a href="{% url 'interviews:interview_history' %}" class="nav-item" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                    <i class="fas fa-history"></i> History of AI
                 </a>
             </nav>
             <div class="sidebar-footer">
@@ -655,13 +731,13 @@
             <!-- Hero Section -->
             <div class="hero-section">
                 <div class="hero-content">
-                    <h1 class="hero-title">Find Your Dream Job</h1>
-                    <p class="hero-subtitle">Explore 1,250+ curated opportunities from top tech companies</p>
+                    <h1 class="hero-title">Find Your<br><span class="hero-title-italic">Dream Job</span></h1>
+                    <p class="hero-subtitle">Explore 1,250+ curated opportunities from top tech companies. Connect with your future today through our AI-powered platform.</p>
                 </div>
                 <div class="stats-container">
                     <div class="stat-card">
                         <div class="stat-number">1,250+</div>
-                        <div class="stat-label">JOBS</div>
+                        <div class="stat-label">CURATED JOBS</div>
                     </div>
                     <div class="stat-card companies">
                         <div class="stat-number">320+</div>
@@ -677,19 +753,28 @@
             <!-- Search Section -->
             <div class="search-section">
                 <div class="search-bar">
-                    <input type="text" class="search-input" placeholder="Search job title, skill, or company">
-                    <select class="filter-select">
-                        <option>All Locations</option>
-                        <option>New York</option>
-                        <option>San Francisco</option>
-                        <option>Remote</option>
-                    </select>
-                    <select class="filter-select">
-                        <option>Experience Level</option>
-                        <option>Entry Level</option>
-                        <option>Mid Level</option>
-                        <option>Senior Level</option>
-                    </select>
+                    <div class="search-input-wrapper">
+                        <i class="fas fa-search"></i>
+                        <input type="text" class="search-input" placeholder="Search job title, skill, or company">
+                    </div>
+                    <div class="filter-wrapper">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <select class="filter-select">
+                            <option>All Locations</option>
+                            <option>New York</option>
+                            <option>San Francisco</option>
+                            <option>Remote</option>
+                        </select>
+                    </div>
+                    <div class="filter-wrapper">
+                        <i class="fas fa-briefcase"></i>
+                        <select class="filter-select">
+                            <option>Experience Level</option>
+                            <option>Entry Level</option>
+                            <option>Mid Level</option>
+                            <option>Senior Level</option>
+                        </select>
+                    </div>
                     <button class="search-btn">Search</button>
                 </div>
             </div>

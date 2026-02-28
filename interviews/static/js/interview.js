@@ -45,12 +45,27 @@ function addMessage(content, isUser = false) {
     const messageDiv = document.createElement('div');
     messageDiv.className = `chat-message ${isUser ? 'user-message' : 'ai-message'}`;
     
-    messageDiv.innerHTML = `
-        <div class="avatar">${isUser ? '👤' : '🤖'}</div>
-        <div class="message-content">
-            <p>${content.replace(/\n/g, '<br>')}</p>
-        </div>
-    `;
+    if (isUser) {
+        messageDiv.innerHTML = `
+            <div class="message-header">
+                <span class="message-label">CANDIDATE</span>
+                <span class="candidate-badge">ME</span>
+            </div>
+            <div class="message-content">
+                <p>${content.replace(/\n/g, '<br>')}</p>
+            </div>
+        `;
+    } else {
+        messageDiv.innerHTML = `
+            <div class="message-header">
+                <div class="avatar">R</div>
+                <span class="message-label">INTERVIEWER</span>
+            </div>
+            <div class="message-content">
+                <p>${content.replace(/\n/g, '<br>')}</p>
+            </div>
+        `;
+    }
     
     chatBox.appendChild(messageDiv);
     chatBox.scrollTop = chatBox.scrollHeight;
@@ -129,35 +144,35 @@ function updateInterviewState(userMessage, aiResponse) {
 
     // Check if interview started
     if (userMessage.toLowerCase() === 'go') {
-        statusBadge.textContent = '● Collecting Info';
-        statusBadge.style.background = '#fff3e0';
-        statusBadge.style.color = '#f57c00';
+        statusBadge.textContent = 'LIVE';
+        statusBadge.style.background = '#d1fae5';
+        statusBadge.style.color = '#10b981';
         startTimer();
     }
 
     // Check if role was provided
     if (aiResponse.includes('Which topics?')) {
-        roleDisplay.textContent = `Role: ${userMessage}`;
-        statusBadge.textContent = '● Setting Topics';
-        statusBadge.style.background = '#f3e5f5';
-        statusBadge.style.color = '#7b1fa2';
+        roleDisplay.textContent = userMessage.toUpperCase();
+        statusBadge.textContent = 'LIVE';
+        statusBadge.style.background = '#d1fae5';
+        statusBadge.style.color = '#10b981';
     }
 
     // Check if topics provided and questions started
     if (aiResponse.includes('Question 1:') || aiResponse.includes('Question ')) {
         if (userMessage.toLowerCase() !== 'go' && !aiResponse.includes('Score:')) {
-            topicsDisplay.textContent = `Topics: ${userMessage}`;
+            topicsDisplay.textContent = userMessage.toUpperCase();
         }
-        statusBadge.textContent = '● Interview Active';
-        statusBadge.style.background = '#e8f5e8';
-        statusBadge.style.color = '#2e7d32';
+        statusBadge.textContent = 'LIVE';
+        statusBadge.style.background = '#d1fae5';
+        statusBadge.style.color = '#10b981';
     }
 
     // Check if interview completed
     if (aiResponse.includes('Interview Completed')) {
-        statusBadge.textContent = '● Completed';
-        statusBadge.style.background = '#e1f5fe';
-        statusBadge.style.color = '#0277bd';
+        statusBadge.textContent = 'COMPLETED';
+        statusBadge.style.background = '#e0e7ff';
+        statusBadge.style.color = '#4f46e5';
         clearInterval(timerInterval);
         
         // Show completion panel with animation
