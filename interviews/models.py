@@ -18,7 +18,13 @@ class InterviewSession(models.Model):
         ("advanced", "Advanced"),
     ]
 
+    MODE_CHOICES = [
+        ("random", "Random Topics"),
+        ("single", "Single Topic"),
+    ]
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    mode = models.CharField(max_length=20, choices=MODE_CHOICES, default="random", null=True, blank=True)
     role = models.CharField(max_length=100, null=True, blank=True)
     topics = models.TextField(null=True, blank=True)
     difficulty_level = models.CharField(max_length=20, choices=DIFFICULTY_CHOICES, default="intermediate")

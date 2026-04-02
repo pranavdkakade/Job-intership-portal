@@ -611,11 +611,17 @@
             <div class="filters-section">
                 <form method="GET" class="filters-row">
                     <div class="filter-group">
+                        <label class="filter-label">Filter by Path:</label>
+                        <select name="path" class="filter-select">
+                            <option value="">All Paths</option>
+                            <option value="random" {% if current_path_filter == 'random' %}selected{% endif %}>Random Topics</option>
+                            <option value="single" {% if current_path_filter == 'single' %}selected{% endif %}>Single Topic</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
                         <label class="filter-label">Filter by Role:</label>
                         <select name="role" class="filter-select">
                             <option value="">All Roles</option>
-                            <option value="random_topics">Random Topics (mixed questions)</option>
-                            <option value="single_topic">Single Topic</option>
                             {% for role in all_roles %}
                                 <option value="{{ role }}" {% if current_role_filter == role %}selected{% endif %}>
                                     {{ role }}
@@ -633,6 +639,17 @@
                     {% for session in sessions %}
                         <div class="interview-card">
                             <div class="card-left">
+                                <div class="topic-section">
+                                    <div class="role-label">PATH</div>
+                                    <div class="topic-name" style="{% if session.mode == 'single' %}color: #f59e0b; font-weight: 600;{% else %}color: #2563eb;{% endif %}">
+                                        {% if session.mode == 'single' %}
+                                            Single Topic
+                                        {% else %}
+                                            Random Topics
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                
                                 <div class="topic-section">
                                     <div class="role-label">TOPIC</div>
                                     <div class="topic-name">

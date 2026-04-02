@@ -16,6 +16,8 @@ def chat_interview(request):
     if request.method == "POST":
         data = json.loads(request.body)
         message = data.get("message")
+        mode = data.get("mode", "random")  # Get mode from request
+        topic = data.get("topic")  # Get selected topic for single mode
         user = request.user  # Always use the logged-in user
 
         # Get the most recent incomplete session for this user, or create one
@@ -25,7 +27,40 @@ def chat_interview(request):
         ).first()
 
         if not session:
-            session = InterviewSession.objects.create(user=user)
+            session = InterviewSession.objects.create(user=user, mode=mode)
+
+        # Handle Single Topic Mode Start
+        if message == "START_SINGLE_TOPIC" and mode == "single" and topic:
+            session.mode = 'single'
+            session.role = 'N/A'  # Single topic doesn't need role
+            session.topics = topic
+            session.stage = "interview_started"
+            session.current_question_number = 1
+            session.save()
+
+            try:
+                question = generate_question(
+                    topic,  # Use topic as role for focused questions
+                    topic,  # Keep topics same
+                    1,
+                    mode='single'  # Pass mode to use RAG
+                )
+
+                InterviewQuestion.objects.create(
+                    session=session,
+                    question_text=question,
+                    question_number=session.current_question_number,
+                    max_score=10,
+                )
+
+                session.stage = "waiting_for_answer"
+                session.save()
+
+                return JsonResponse({"reply": f"📌 Question 1:\n\n{question}"})
+            
+            except Exception as e:
+                session.delete()
+                return JsonResponse({"reply": f"Error generating question: {str(e)}. Please try again."})
 
         # START
         if session.stage == "waiting_for_start":
@@ -50,11 +85,21 @@ def chat_interview(request):
             session.save()
 
             try:
-                question = generate_question(
-                    session.role,
-                    session.topics,
-                    1
-                )
+                # For single topic mode, use topic-specific generation
+                if session.mode == 'single' and topic:
+                    question = generate_question(
+                        topic,  # Use topic as role for focused questions
+                        topic,  # Keep topics same
+                        1,
+                        mode='single'  # Use RAG
+                    )
+                else:
+                    question = generate_question(
+                        session.role,
+                        session.topics,
+                        1,
+                        mode='random'  # Use AI generation
+                    )
 
                 InterviewQuestion.objects.create(
                     session=session,
@@ -123,11 +168,21 @@ Final Score: {final_score}/10  ({percentage}%)
                 next_q_number = session.current_question_number
                 session.save()
 
-                next_question = generate_question(
-                    session.role,
-                    session.topics,
-                    next_q_number
-                )
+                # For single topic mode, use topic-specific generation
+                if session.mode == 'single' and session.topics:
+                    next_question = generate_question(
+                        session.topics,  # Use topic as role for focused questions
+                        session.topics,  # Keep topics same
+                        next_q_number,
+                        mode='single'  # Use RAG
+                    )
+                else:
+                    next_question = generate_question(
+                        session.role,
+                        session.topics,
+                        next_q_number,
+                        mode='random'  # Use AI generation
+                    )
 
                 InterviewQuestion.objects.create(
                     session=session,

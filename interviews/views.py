@@ -28,6 +28,11 @@ def interview_history(request):
     if role_filter:
         sessions = sessions.filter(role__icontains=role_filter)
     
+    # Filter by mode/path if provided
+    path_filter = request.GET.get('path')
+    if path_filter:
+        sessions = sessions.filter(mode=path_filter)
+    
     # Calculate statistics
     total_sessions = sessions.count()
     avg_performance = 0
@@ -63,6 +68,7 @@ def interview_history(request):
         'sessions': page_obj,
         'all_roles': all_roles,
         'current_role_filter': role_filter,
+        'current_path_filter': path_filter,
         'total_sessions': total_sessions,
         'avg_performance': avg_performance,
         'total_roles': total_roles,

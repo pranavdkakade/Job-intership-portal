@@ -521,7 +521,7 @@
             }
         }
     </style>
-    <script src="{% static 'js/interview.js' %}" defer></script>
+    <script src="{% static 'js/interview.js' %}?v=6.0" defer></script>
 </head>
 <body>
     <div class="dashboard-wrapper">
@@ -571,6 +571,10 @@
                         <p class="interview-subtitle">Prepare for your upcoming technical assessment with real-time feedback.</p>
                     </div>
                     <div class="interview-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">PATH</div>
+                            <div class="meta-value" id="pathDisplay">not selected</div>
+                        </div>
                         <div class="meta-item">
                             <div class="meta-label">ROLE</div>
                             <div class="meta-value" id="roleDisplay">not selected</div>

@@ -1,15 +1,37 @@
 from groq import Groq
 from django.conf import settings
+from .single_topic_rag import get_question_for_topic
 
 client = Groq(api_key=settings.GROQ_API_KEY)
 
 
-def generate_question(role, topics, question_number):
+def generate_question(role, topics, question_number, mode='random'):
     """
     Generate one technical interview question.
-    Difficulty increases as question number increases.
+    Supports both RAG-based (single topic) and AI-generated (random topics) questions.
+    
+    Args:
+        role: Job role or topic name
+        topics: Topics to cover
+        question_number: Question number (1-5)
+        mode: 'single' for RAG-based, 'random' for AI-generated
+    
+    Returns:
+        Question string
     """
-
+    
+    # For single topic mode, use RAG from question bank
+    if mode == 'single' and topics.lower() in ['sql', 'python']:
+        try:
+            question = get_question_for_topic(topics.lower(), question_number)
+            if question:
+                return question
+            # If RAG fails, fall through to AI generation
+            print(f"RAG returned None, using AI fallback for {topics}")
+        except Exception as e:
+            print(f"RAG error: {e}, using AI fallback")
+    
+    # For random topics mode or fallback, use AI generation
     # Difficulty scaling
     if question_number == 1:
         difficulty = "easy"
